@@ -1,0 +1,49 @@
+        text{                               /*this is SVG text only*/
+				font-family: sans-serif;
+				font-size: 12px;
+				/*fill: white;*/
+			}
+
+
+        table{
+            /*border:2px solid blue;*/
+            margin-left: 200px
+        }
+
+        th, td {
+            font-family:sans-serif;
+            font-size:0.8em;
+            padding-left:7px;
+            padding-right:7px;
+            padding-top:4px;
+            padding-bottom:4px;
+            vertical-align:middle;
+            /*text-align:center;*/
+        }
+
+        th {cursor: default}            /*text doesn't show as selectable*/
+
+        th.unselectedColumn {
+            color:white;
+            background-color:steelblue;
+            text-align:center;
+        }
+
+		th.selectedColumn {
+            color:white;
+            background-color:black;
+            text-align:center;
+        }
+
+        td {
+            /*border:0px solid black;*/
+            text-align:left;
+        }
+
+        tr:hover {
+            background-color:#E0E0E0;
+        }
+
+        /*tr[chosen=true] {                       doesn't work currently as code to allow choosing has not been brought in*/
+        /*    background-color:#B5CDE1;*/
+        /*}*/
