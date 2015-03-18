@@ -1,1 +1,480 @@
-Hello world
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Free school Ofsted ratings</title>
+    <script type="text/javascript" src="d3/d3.js"></script>
+	<link rel="stylesheet" href="styling.css">
+  </head>
+  <body>
+    <div id="introSection">
+    <h1>Free school Ofsted ratings</h1>
+        <ul>
+            <li><a href="#openSection">Open free schools</a></li>
+            <li><a href="#closedSection">Closed free schools</a></li>
+            <li><a href="#notesSection">Notes on usage</a></li>
+        </ul>
+    </div>
+    <div id="openSection">
+        <h2>Open free schools</h2>
+        <span style="float:right">Last updated: <span id="lastupdated"></span></span>
+        <p>There are currently <span id="openfreeschools"></span> open free schools. Of these, <span id="sec5openfreeschools"></span> have had a section 5 inspection.</p>
+	        
+	    <div id="piesSection" style="overflow:hidden">		<!-- forces table onto fresh row when closing this div -->	
+	        <p></p>
+	        <div width: "40px"><span id="openPieSpace" style="float:left"></span></div>
+	        <span id="primaryPieSpace" style="float:left"></span>
+	        <span id="secondaryPieSpace" style="float:left"></span>
+	        <span id="keySpace" style="float:right"></span>
+	        <span id="allThroughPieSpace" style="float:left"></span>
+	        <span id="apPieSpace" style="float:left"></span>
+	        <span id="specialPieSpace" style="float:left"></span>
+	        <p></p>
+	    </div>
+	    <div id="openTableSpace"></div>
+        <div id="openNotesSpace"></div>
+	    <span style="float:right"><a href="#introSection">Back to the top</a></span>
+    </div>
+    <div id="closedSection">
+        <h2>Closed free schools</h2>
+        <div id="closedTableSpace"></div>
+        <p></p>
+        <div id="closedNotesSpace"></div>
+        <span style="float:right"><a href="#introSection">Back to the top</a></span>
+    </div>
+    <div id="notesSection">
+        <h2>Notes on usage</h2>
+        <span style="float:right"><a href="#introSection">Back to the top</a></span>
+    </div>
+
+    <script type="text/javascript">
+
+	    ////////////////////////////////////////
+		//Importing data for headline figures///
+		///////////////////////////////////////
+
+
+	    d3.json("https://premium.scraperwiki.com/fkvwfha/7f269650903e4e1/sql/?q=select%20%0A%09Max(Run_date)%2C%20Run_date_short%2CNumberOfSchools%2CNumberOfClosedSchools%2CNumberOfUnopenedSchools%2CNumberOfOpenUninspectedSchools%2CNumberOfOpenSec5Schools%0Afrom%20admin_totals%0Awhere%20Spreadsheet_pass%3D%22Pass%22%0AAND%20Saving_pass%3D%22Pass%22", function(json) {             //this pulls in JSON feed of admin data for last successful run
+	        data=json[0];           //json only has one row, so grabs that
+	        d3.select("#lastupdated").text(data.Run_date_short);
+	        d3.select("#openfreeschools").text(data.NumberOfOpenSec5Schools+data.NumberOfOpenUninspectedSchools);
+	        d3.select("#sec5openfreeschools").text(data.NumberOfOpenSec5Schools);
+	    });
+
+
+
+		//////////////////////////////
+		//Importing data for tables///
+		//////////////////////////////
+
+		var openRatings = {}    //sets empty dictionary that will hold ratings details, so can be called globally
+	    var closedRatings = {}    //sets empty dictionary that will hold ratings details, so can be called globally
+	    var whereTable = ""
+	    var whereNotes = ""
+
+	    d3.json("https://premium.scraperwiki.com/fkvwfha/7f269650903e4e1/sql/?q=select%20%0A%20%20%20%20published_recent%2C%20inspection_rating2%2C%20schooltype%2C%20LA%2C%20URL%2C%20schoolname_with_note_symbol%2C%20URN%2C%20schoolname%2C%20open_closed%2C%20opendate_full%2C%20inspection_date_long%2C%20inspection_rating%2C%20opendate_short%2C%20phase%2C%20publication_date%2C%20publication_date_long%2C%20include%2C%20notes%2C%20inspection_date%0Afrom%20Last_successful_school_details%0Awhere%20include%3D1%0Aorder%20by%20inspection_rating2%2Cschoolname", function(json) {             //this pulls in the JSON feed of last successful school ratings, open schools only
+	        openRatings=json;
+	        whereTable="#openTableSpace"
+	        whereNotes="#openNotesSpace"
+	        drawTable(openRatings,whereTable)
+	        writeNotes(openRatings,whereNotes);
+	    });
+
+
+	    d3.json("https://premium.scraperwiki.com/fkvwfha/7f269650903e4e1/sql/?q=select%20%0D%0A%20%20%20%20published_recent%2C%20inspection_rating2%2C%20schooltype%2C%20LA%2C%20URL%2C%20schoolname_with_note_symbol%2C%20URN%2C%20schoolname%2C%20open_closed%2C%20opendate_full%2C%20inspection_date_long%2C%20inspection_rating%2C%20opendate_short%2C%20phase%2C%20publication_date%2C%20publication_date_long%2C%20include%2C%20notes%2C%20inspection_date%0D%0Afrom%20Last_successful_school_details%0D%0Awhere%20open_closed%3D%22Closed%22%0D%0Aorder%20by%20inspection_rating2%2Cschoolname%0D%0A", function(json) {             //this pulls in the JSON feed of last successful school ratings, closed schools only
+	        closedRatings=json;
+	        whereTable="#closedTableSpace"
+	        whereNotes="#closedNotesSpace"
+	        drawTable(closedRatings,whereTable)
+	        writeNotes(closedRatings,whereNotes);
+	    });
+
+	    ////////////////////////////////////////
+		//Adding notes to explain table items///
+		///////////////////////////////////////
+
+		var writeNotes = function(ratings,whereNotes){
+			var haveNotes = false;
+			ratings.forEach(function(d){ 
+				if (d.notes!=""){
+				 	d3.select(whereNotes).html(d3.select(whereNotes)[0][0].innerHTML+"<ul><li>"+d.notes+"</ul>")		//html is previous html + additional note
+				 	haveNotes=true;				
+				};
+			})
+			if (haveNotes==true){
+					d3.select(whereNotes).html("<h3>Notes</h3>"+d3.select(whereNotes)[0][0].innerHTML)		//gives our notes section a header
+				};
+		};
+
+
+		//////////////////////////////////
+		//Importing data for pie charts///
+		/////////////////////////////////
+
+		var ratingsData = {};
+		var wherePie=""
+		var pieSize=""
+		var pieTitle=""
+
+		d3.json("https://premium.scraperwiki.com/fkvwfha/7f269650903e4e1/sql/?q=select%20%0D%0A%20%20%20%20ID%2Cratingtype%2Cratingname%2C%20rating%2C%20percentage%2C%20ratingcount%0D%0Afrom%20Last_successful_ratings_summary%0D%0Awhere%20ratingtype%3D%22Overall%22%20AND%20percentage%3E0%0D%0Aorder%20by%20rating",function(error,json){
+				if (error){
+					console.log(error); //logs error in console if error occurs
+				} else{
+					ratingsData = json;
+					wherePie="#openPieSpace"
+					pieSize="large"
+					pieTitle="All open free schools"
+					makePie(ratingsData,wherePie,pieSize, pieTitle);
+				}
+			});
+
+		d3.json("https://premium.scraperwiki.com/fkvwfha/7f269650903e4e1/sql/?q=select%20%0D%0A%20%20%20%20ID%2Cratingtype%2Cratingname%2C%20rating%2C%20percentage%2C%20ratingcount%0D%0Afrom%20Last_successful_ratings_summary%0D%0Awhere%20ratingtype%3D%22Primary%22%20AND%20percentage%3E0%0D%0Aorder%20by%20rating",function(error,json){
+				if (error){
+					console.log(error); //logs error in console if error occurs
+				} else{
+					ratingsData = json;
+					wherePie="#primaryPieSpace"
+					pieSize="small"
+					pieTitle="Primary"
+					makePie(ratingsData,wherePie,pieSize, pieTitle);
+				}
+			});
+
+		d3.json("https://premium.scraperwiki.com/fkvwfha/7f269650903e4e1/sql/?q=select%20%0D%0A%20%20%20%20ID%2Cratingtype%2Cratingname%2C%20rating%2C%20percentage%2C%20ratingcount%0D%0Afrom%20Last_successful_ratings_summary%0D%0Awhere%20ratingtype%3D%22Secondary%22%20AND%20percentage%3E0%0D%0Aorder%20by%20rating",function(error,json){
+				if (error){
+					console.log(error); //logs error in console if error occurs
+				} else{
+					ratingsData = json;
+					wherePie="#secondaryPieSpace"
+					pieSize="small"
+					pieTitle="Secondary"
+					makePie(ratingsData,wherePie,pieSize, pieTitle);
+				}
+			});
+
+		d3.json("https://premium.scraperwiki.com/fkvwfha/7f269650903e4e1/sql/?q=select%20%0D%0A%20%20%20%20ID%2Cratingtype%2Cratingname%2C%20rating%2C%20percentage%2C%20ratingcount%0D%0Afrom%20Last_successful_ratings_summary%0D%0Awhere%20ratingtype%3D%22All-through%22%20AND%20percentage%3E0%0D%0Aorder%20by%20rating",function(error,json){
+				if (error){
+					console.log(error); //logs error in console if error occurs
+				} else{
+					ratingsData = json;
+					wherePie="#allThroughPieSpace"
+					pieSize="small"
+					pieTitle="All-through"
+					makePie(ratingsData,wherePie,pieSize, pieTitle);
+				}
+			});
+
+		d3.json("https://premium.scraperwiki.com/fkvwfha/7f269650903e4e1/sql/?q=select%20%0D%0A%20%20%20%20ID%2Cratingtype%2Cratingname%2C%20rating%2C%20percentage%2C%20ratingcount%0D%0Afrom%20Last_successful_ratings_summary%0D%0Awhere%20ratingtype%3D%22Alternative%20provision%22%20AND%20percentage%3E0%0D%0Aorder%20by%20rating",function(error,json){			
+				if (error){
+					console.log(error); //logs error in console if error occurs
+				} else{
+					ratingsData = json;
+					wherePie="#apPieSpace"
+					pieSize="small"
+					pieTitle="Alternative provision"
+					makePie(ratingsData,wherePie,pieSize, pieTitle);
+				}
+			});
+
+		d3.json("https://premium.scraperwiki.com/fkvwfha/7f269650903e4e1/sql/?q=select%20%0D%0A%20%20%20%20ID%2Cratingtype%2Cratingname%2C%20rating%2C%20percentage%2C%20ratingcount%0D%0Afrom%20Last_successful_ratings_summary%0D%0Awhere%20ratingtype%3D%22Special%22%20AND%20percentage%3E0%0D%0Aorder%20by%20rating",function(error,json){
+				if (error){
+					console.log(error); //logs error in console if error occurs
+				} else{
+					ratingsData = json;
+					wherePie="#specialPieSpace"
+					pieSize="small"
+					pieTitle="Special"
+					makePie(ratingsData,wherePie,pieSize, pieTitle);
+				}
+			});
+
+	    ///////////////////////
+		//Tables///////////////
+		//////////////////////
+
+	    var drawTable = function(ratings,whereTable){
+
+		    var columnsToDisplay = ["schoolname_with_note_symbol", "URN", "LA", "phase", "inspection_date", "publication_date", "inspection_rating"];     //data headings, read when pulling in data
+		    var columnTitles = [                                                                    //column headings, read when setting up table header
+		        {"columnName":"Name", "width":"242","type":"string","sorted":false,"selected":false},
+		        {"columnName":"URN", "width":"56","type":"string","sorted":false,"selected":false},
+		        {"columnName":"Local authority", "width":"140","type":"string","sorted":false,"selected":false},
+		        {"columnName":"Phase", "width":"106","type":"string","sorted":false,"selected":false},
+		        {"columnName":"Inspection date", "width":"96","type":"date","sorted":false,"selected":false},
+		        {"columnName":"Publication date", "width":"96","type":"date","sorted":false,"selected":false},
+		        {"columnName":"Rating", "width":"122","type":"rating","sorted":true,"selected":true}			//as by default, data is sorted on this column
+		    ]; 
+		    
+		    var table = d3.select(whereTable).append("table")
+		    	col= table.append("col").attr("width","242")					//manually sets column widths
+		    	col= table.append("col").attr("width","56")
+		    	col= table.append("col").attr("width","140")
+		    	col= table.append("col").attr("width","106")
+		    	col= table.append("col").attr("width","96")
+		    	col= table.append("col").attr("width","96")
+		    	col= table.append("col").attr("width","122")
+		        thead = table.append("thead"),
+		        tbody = table.append("tbody");
+
+		    // append the header row
+		    var headers = thead.append("tr")
+		        .selectAll("th")
+		        .data(columnTitles)
+		        .enter()
+		        .append("th")
+		        // .attr("style","width:400px")
+		        // .attr("style","width:" + function(d){return d.width;} + "px")
+		        // .attr("style","height:" + 400 + "px")
+		        .text(function(d) { return d.columnName; })
+		        .attr("class",function(d){				/*sets class of header to selectedColumn for Rating column only*/
+		        	var columnSelected
+		        	if (d.selected==true){
+		        		columnSelected="selectedColumn";
+		        	}
+		        	else if (d.selected==false){
+		        		columnSelected="unselectedColumn";
+		        	}
+		        	return columnSelected;})			
+		        .on("click", function (d) {				/*sorts on clicked header, and updates class of clicked header to selectedColumn*/
+		        	var columnSorted
+		        	columnSorted=d.sorted
+		        	for (i = 0; i < columnTitles.length; i++){
+		        		columnTitles[i].sorted=false
+		        		columnTitles[i].selected=false
+		        		headers[0][i].className="unselectedColumn"
+		        		if (headers[0][i].textContent==d.columnName){
+		        			headers[0][i].className="selectedColumn";
+		        		}
+		        	}
+		        	d.sorted=!columnSorted
+		        	d.selected=true
+		            if(d.columnName=="Name"){
+			            if(d.sorted == true){
+			                rows.sort(function (b, a) { return b.schoolname.localeCompare(a.schoolname); });   
+			            }
+			            else if(d.sorted == false){
+			                rows.sort(function (a, b) { return b.schoolname.localeCompare(a.schoolname); });   
+			            }
+		        	}
+		            else if(d.columnName=="URN"){
+		      			if(d.sorted == true){
+			                rows.sort(function (b, a) { return b.URN.localeCompare(a.URN); });   
+			            }
+			            else if(d.sorted == false){
+			                rows.sort(function (a, b) { return b.URN.localeCompare(a.URN); });   
+			            }
+		            }
+		            else if(d.columnName=="Local authority"){
+		      			if(d.sorted == true){
+			                rows.sort(function (b, a) { return b.LA.localeCompare(a.LA); });   
+			            }
+			            else if(d.sorted == false){
+			                rows.sort(function (a, b) { return b.LA.localeCompare(a.LA); });   
+			            }
+		            }
+		            else if(d.columnName=="Phase"){
+		      			if(d.sorted == true){
+			                rows.sort(function (b, a) { return b.phase.localeCompare(a.phase); });   
+			            }
+			            else if(d.sorted == false){
+			                rows.sort(function (a, b) { 
+			                	return b.phase.localeCompare(a.phase); });   
+			            }
+		            }
+		            else if(d.columnName=="Inspection date"){
+		      			if(d.sorted == true){
+		      				rows.sort(function (a, b){return a.inspection_date_long<b.inspection_date_long ? -1 : a.inspection_date_long>b.inspection_date_long ? 1 : 0;}); 
+			            }
+			            else if(d.sorted == false){
+			                rows.sort(function (a, b){return a.inspection_date_long>b.inspection_date_long ? -1 : a.inspection_date_long<b.inspection_date_long ? 1 : 0;});
+			            }
+		            }
+		            else if(d.columnName=="Publication date"){
+		      			if(d.sorted == true){
+		      				rows.sort(function (a, b){return a.publication_date_long<b.publication_date_long ? -1 : a.publication_date_long>b.publication_date_long ? 1 : 0;}); 
+			            }
+			            else if(d.sorted == false){
+			                rows.sort(function (a, b){return a.publication_date_long>b.publication_date_long ? -1 : a.publication_date_long<b.publication_date_long ? 1 : 0;});
+			            }
+		            }
+		            else if(d.columnName=="Rating"){
+		      			if(d.sorted == true){
+			                rows.sort(function (b, a) { return b.inspection_rating2.localeCompare(a.inspection_rating2); });   
+			            }
+			            else if(d.sorted == false){
+			                rows.sort(function (a, b) { return b.inspection_rating2.localeCompare(a.inspection_rating2); });   
+			            }
+		            }
+		        });
+
+		    // create a row for each object in the data
+		    var rows = tbody.selectAll("tr")
+		        .data(ratings)
+		        .enter()
+		        .append("tr")
+
+		    //create a cell in each row for each column    
+		    var cells = rows.selectAll("td")
+		        .data(function(d) {
+		            return columnsToDisplay.map(function(column) {              //for all cells, creates an object with column, value and URN (note that not all of these need to be displayed)
+		                return {column: column, value: d[column],URN:d["URN"]};
+		            });
+		        })
+		        .enter()
+		        .append("td")
+		        // .text(function(d) { return d.value; })
+		        .html(function(d,i){              //when dealing with column "Name", add a hyperlink. When  dealing with other columns, just return the data value
+		            if (d.column=="schoolname_with_note_symbol"){
+		                return "<a href=\"http://www.ofsted.gov.uk/inspection-reports/find-inspection-report/provider/ELS/" + d.URN +"\"" + "target='_blank'>" + d.value + "</a>";     
+		            }
+		            else{
+		                return d.value;    
+		            }
+		        });
+			};
+
+
+		///////////////////////
+		//Summary pie chart///
+		//////////////////////
+
+
+			var makePie = function(ratingsData,wherePie,pieSize,pieTitle){
+				if (pieSize=="large"){
+		        	var canvasWidth = 320,				
+					    canvasHeight = 320,
+					    radius = Math.min(canvasWidth, canvasHeight) / 2;
+		        }
+		        else if (pieSize=="small"){
+		        	var canvasWidth = 160,
+				    	canvasHeight = 160,
+				    	radius = Math.min(canvasWidth, canvasHeight) / 2;
+		        }
+
+				var arc = d3.svg.arc()
+				    .outerRadius(radius - 20)
+				    .innerRadius(canvasHeight/6);
+
+				var pie = d3.layout.pie()
+				    .sort(null)
+				    .value(function(d) { return d.percentage; });
+
+				var svg = d3.select(wherePie).append("svg")			//draws canvas, and sets our default position to being in the centre of the canvas
+				    .attr("width", canvasWidth)
+				    .attr("height", canvasHeight)
+				  	.append("g")
+				    .attr("transform", "translate(" + canvasWidth / 2 + "," + canvasHeight / 2 + ")");
+
+				var colours = {
+					"Outstanding":"#1B811D",
+					"Good":"#4BBD4D",
+					"Requires improvement":"#ED9004",
+					"Inadequate":"#B00808"
+				};
+
+   		 		var openInspectedTotal = 0;
+				ratingsData.forEach(function(d){ openInspectedTotal+=(d.ratingcount*1); });
+
+				var	center_group=svg.selectAll('text')			//adds central label
+						.data(ratingsData)
+						.enter()
+						.append('text')
+						.text(openInspectedTotal)
+						.style("font-size","26px")
+						.attr("font-weight", "bold")
+						.attr('class',pieSize)
+						 .attr('dy', 10)							//bumps text down a few pixels to account for fact text sits on x line
+						.attr('text-anchor', 'middle')
+
+				var g = svg.selectAll(".arc")
+				    .data(pie(ratingsData))
+				    .enter()
+				    .append("g")
+				    .attr("class", "arc");
+
+				g.append("path")
+				    .attr("d", arc)
+				    .style("fill", function(d) { return colours[d.data.ratingname]; });
+
+				// g.append("text")					//segment labels *outside* the graph (150% of centre of distance from centre of circle to centre of segment)
+				//     .attr("transform", function(d) {
+				// 	    var c = arc.centroid(d),
+				// 	        x = c[0],
+				// 	        y = c[1],
+				// 	        h = Math.sqrt(x*x + y*y);
+				// 	    return "translate(" + (x/h * 160) +  ',' +(y/h * 150) +  ")"; 
+				// 	})
+				//     .attr("dy", ".35em")
+				//     .attr("text-anchor", function(d) {  
+    			//		return (d.endAngle + d.startAngle)/2 > Math.PI ? "end" : "start";})
+				//     .text(function(d) { return d.data.ratingname; })
+
+				g.append("text")									//labels each segment with the relevant count
+					.attr("transform", function(d) {return "translate(" + arc.centroid(d) + ")";})
+				    .attr("text-anchor", "middle")
+				    .style("font-size","26px")
+				    .attr("font-weight", "bold")
+				    .text(function(d) { return d.data.ratingcount})
+
+				g.append("text")									//labels each segment with the relevant percentage
+					.attr("transform", function(d) {return "translate(" + arc.centroid(d) + ")";})
+				    .attr("dx", "2")
+				    .attr("dy", "15")
+				    .attr("text-anchor", "middle")
+				    .text(function(d) { return " "+d.data.percentage+"%"})
+
+				svg.append("text")								//header for each chart
+				    .attr("dy", (-canvasHeight/2)+10)
+				    .attr("font-weight", "bold")
+				    .attr("text-anchor", "middle")
+				    .text(pieTitle)
+			};
+
+
+		///////////////////////
+		//Key/////////////////
+		//////////////////////
+
+		var makeKey = function(){
+				var canvasWidth = 600,								//hacky solution to push 'special' pie chart onto a new line
+				    canvasHeight = 160
+
+			var svg = d3.select("#keySpace").append("svg")			//draws canvas, and sets our default position to being in the centre of the canvas
+				.attr("width", canvasWidth)
+				.attr("height", canvasHeight)
+
+
+			keyData=[
+		        {"Name":"Outstanding", "colour":"#1B811D"},
+		        {"Name":"Good", "colour":"#4BBD4D"},
+		        {"Name":"Requires improvement", "colour":"#ED9004"},
+		        {"Name":"Inadequate", "colour":"#B00808"},	
+		    ];
+
+			svg.selectAll("rect")
+				.data(keyData)
+				.enter()
+				.append("rect")	
+				.attr("x",360)
+				.attr("y",function(d,i){return i*21;})
+				.attr("width",100)
+				.attr("height",20)
+				.style("fill", function(d) { return d.colour });
+
+			svg.selectAll("text")
+				.data(keyData)
+				.enter()
+				.append("text")	
+				.attr("x",465)									// left edge of key segment + segment width + 5px
+				.attr("y",function(d,i){return i*21+15;})
+				.text(function(d) { return d.Name })
+			
+		}
+
+		makeKey();		//runs they key production section
+		
+
+</script>
+ 
+  </body>
+</html>
