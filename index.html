@@ -97,7 +97,7 @@
 			var haveNotes = false;
 			ratings.forEach(function(d){ 
 				if (d.notes!=""){		//takes existing notes and adds on new note symbol + note
-				 	d3.select(whereNotes).html(d3.select(whereNotes)[0][0].innerHTML+"<ul><li>"d.note_symbol+d.notes+"</ul>")		//html is previous html + additional note
+				 	d3.select(whereNotes).html(d3.select(whereNotes)[0][0].innerHTML+"<ul><li>"+d.note_symbol+d.notes+"</ul>")		//html is previous html + additional note
 				 	haveNotes=true;				
 				};
 			})
