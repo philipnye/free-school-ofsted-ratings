@@ -196,13 +196,13 @@
 
 		    var columnsToDisplay = ["schoolname_with_note_symbol", "URN", "LA", "phase", "inspection_date", "publication_date", "inspection_rating"];     //data headings, read when pulling in data
 		    var columnTitles = [                                                                    //column headings, read when setting up table header
-		        {"columnName":"Name", "width":"242","type":"string","sorted":false,"selected":false},
-		        {"columnName":"URN", "width":"56","type":"string","sorted":false,"selected":false},
-		        {"columnName":"Local authority", "width":"140","type":"string","sorted":false,"selected":false},
-		        {"columnName":"Phase", "width":"106","type":"string","sorted":false,"selected":false},
-		        {"columnName":"Inspection date", "width":"96","type":"date","sorted":false,"selected":false},
-		        {"columnName":"Publication date", "width":"96","type":"date","sorted":false,"selected":false},
-		        {"columnName":"Rating", "width":"122","type":"rating","sorted":true,"selected":true}			//as by default, data is sorted on this column
+		        {"columnName":"Name ↑↓", "width":"242","type":"string","sorted":false,"selected":false},
+		        {"columnName":"URN ↑↓", "width":"66","type":"string","sorted":false,"selected":false},
+		        {"columnName":"Local authority ↑↓", "width":"140","type":"string","sorted":false,"selected":false},
+		        {"columnName":"Phase ↑↓", "width":"106","type":"string","sorted":false,"selected":false},
+		        {"columnName":"Inspection date ↑↓", "width":"96","type":"date","sorted":false,"selected":false},
+		        {"columnName":"Publication date ↑↓", "width":"96","type":"date","sorted":false,"selected":false},
+		        {"columnName":"Rating ↑↓", "width":"122","type":"rating","sorted":true,"selected":true}			//as by default, data is sorted on this column
 		    ]; 
 		    
 		    var table = d3.select(whereTable).append("table")
@@ -248,7 +248,7 @@
 		        	}
 		        	d.sorted=!columnSorted
 		        	d.selected=true
-		            if(d.columnName=="Name"){
+		            if(d.columnName=="Name ↑↓"){
 			            if(d.sorted == true){
 			                rows.sort(function (b, a) { return b.schoolname.localeCompare(a.schoolname); });   
 			            }
@@ -256,7 +256,7 @@
 			                rows.sort(function (a, b) { return b.schoolname.localeCompare(a.schoolname); });   
 			            }
 		        	}
-		            else if(d.columnName=="URN"){
+		            else if(d.columnName=="URN ↑↓"){
 		      			if(d.sorted == true){
 			                rows.sort(function (b, a) { return b.URN.localeCompare(a.URN); });   
 			            }
@@ -264,7 +264,7 @@
 			                rows.sort(function (a, b) { return b.URN.localeCompare(a.URN); });   
 			            }
 		            }
-		            else if(d.columnName=="Local authority"){
+		            else if(d.columnName=="Local authority ↑↓"){
 		      			if(d.sorted == true){
 			                rows.sort(function (b, a) { return b.LA.localeCompare(a.LA); });   
 			            }
@@ -272,7 +272,7 @@
 			                rows.sort(function (a, b) { return b.LA.localeCompare(a.LA); });   
 			            }
 		            }
-		            else if(d.columnName=="Phase"){
+		            else if(d.columnName=="Phase ↑↓"){
 		      			if(d.sorted == true){
 			                rows.sort(function (b, a) { return b.phase.localeCompare(a.phase); });   
 			            }
@@ -281,7 +281,7 @@
 			                	return b.phase.localeCompare(a.phase); });   
 			            }
 		            }
-		            else if(d.columnName=="Inspection date"){
+		            else if(d.columnName=="Inspection date ↑↓"){
 		      			if(d.sorted == true){
 		      				rows.sort(function (a, b){return a.inspection_date_long<b.inspection_date_long ? -1 : a.inspection_date_long>b.inspection_date_long ? 1 : 0;}); 
 			            }
@@ -289,7 +289,7 @@
 			                rows.sort(function (a, b){return a.inspection_date_long>b.inspection_date_long ? -1 : a.inspection_date_long<b.inspection_date_long ? 1 : 0;});
 			            }
 		            }
-		            else if(d.columnName=="Publication date"){
+		            else if(d.columnName=="Publication date ↑↓"){
 		      			if(d.sorted == true){
 		      				rows.sort(function (a, b){return a.publication_date_long<b.publication_date_long ? -1 : a.publication_date_long>b.publication_date_long ? 1 : 0;}); 
 			            }
@@ -297,7 +297,7 @@
 			                rows.sort(function (a, b){return a.publication_date_long>b.publication_date_long ? -1 : a.publication_date_long<b.publication_date_long ? 1 : 0;});
 			            }
 		            }
-		            else if(d.columnName=="Rating"){
+		            else if(d.columnName=="Rating ↑↓"){
 		      			if(d.sorted == true){
 			                rows.sort(function (b, a) { return b.inspection_rating2.localeCompare(a.inspection_rating2); });   
 			            }
