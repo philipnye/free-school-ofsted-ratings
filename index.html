@@ -197,7 +197,7 @@
 		    var columnsToDisplay = ["schoolname_with_note_symbol", "URN", "LA", "phase", "inspection_date", "publication_date", "inspection_rating"];     //data headings, read when pulling in data
 		    var columnTitles = [                                                                    //column headings, read when setting up table header
 		        {"columnName":"Name ↑↓", "width":"242","type":"string","sorted":false,"selected":false},
-		        {"columnName":"URN ↑↓", "width":"100","type":"string","sorted":false,"selected":false},
+		        {"columnName":"URN ↑↓", "width":"55","type":"string","sorted":false,"selected":false},
 		        {"columnName":"Local authority ↑↓", "width":"140","type":"string","sorted":false,"selected":false},
 		        {"columnName":"Phase ↑↓", "width":"106","type":"string","sorted":false,"selected":false},
 		        {"columnName":"Inspection date ↑↓", "width":"96","type":"date","sorted":false,"selected":false},
@@ -207,7 +207,7 @@
 		    
 		    var table = d3.select(whereTable).append("table")
 		    	col= table.append("col").attr("width","242")					//manually sets column widths
-		    	col= table.append("col").attr("width","56")
+		    	col= table.append("col").attr("width","66")
 		    	col= table.append("col").attr("width","140")
 		    	col= table.append("col").attr("width","106")
 		    	col= table.append("col").attr("width","96")
