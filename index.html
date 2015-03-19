@@ -9,10 +9,11 @@
   <body>
     <div id="introSection">
     <h1>Free school Ofsted ratings</h1>
+    <p>Opening up free school Ofsted ratings data.</p>
         <ul>
             <li><a href="#openSection">Open free schools</a></li>
             <li><a href="#closedSection">Closed free schools</a></li>
-            <li><a href="#notesSection">Notes on usage</a></li>
+            <li><a href="#notesSection">Notes on use</a></li>
         </ul>
     </div>
     <div id="openSection">
@@ -20,8 +21,8 @@
         <span style="float:right">Last updated: <span id="lastupdated"></span></span>
         <p>There are currently <span id="openfreeschools"></span> open free schools. Of these, <span id="sec5openfreeschools"></span> have had a section 5 inspection.</p>
 	        
-	    <div id="piesSection" style="overflow:hidden">		<!-- forces table onto fresh row when closing this div -->	
-	        <p></p>
+	<div id="piesSection" style="overflow:hidden">		<!-- forces table onto fresh row when closing this div -->	
+		<p></p>
 	        <div width: "40px"><span id="openPieSpace" style="float:left"></span></div>
 	        <span id="primaryPieSpace" style="float:left"></span>
 	        <span id="secondaryPieSpace" style="float:left"></span>
@@ -30,8 +31,8 @@
 	        <span id="apPieSpace" style="float:left"></span>
 	        <span id="specialPieSpace" style="float:left"></span>
 	        <p></p>
-	    </div>
-	    <div id="openTableSpace"></div>
+	</div>
+	<div id="openTableSpace"></div>
         <div id="openNotesSpace"></div>
 	    <span style="float:right"><a href="#introSection">Back to the top</a></span>
     </div>
@@ -43,7 +44,39 @@
         <span style="float:right"><a href="#introSection">Back to the top</a></span>
     </div>
     <div id="notesSection">
-        <h2>Notes on usage</h2>
+        <h2>Notes on use</h2>
+        <span style="float:right"><a href="#introSection">Back to the top</a></span>
+        <h3>How does it work?</h3>
+        <ul>
+            <li>The tool gives the latest Ofsted ratings for free schools, based on data scraped from the Ofsted website.</li>
+            <li>Results are generally updated each day, at or around 6am. You can find out when they were last update by checking the datestamp above the table of open free school ratings.</li>
+            <li>Only Ofsted section 5 inspection results are included. These lead to one of four ratings: outstanding, good, requires improvement or inadequate. Other inspections that Ofsted carries out - section 8 inspections - are not included.</li>
+            <li>Currently, post-16 institutions are subject to a different type of inspection that doesn't lead to a 1-4 rating. For that reason, they’re excluded from the results given here. But there are only [XX] 16-19 free schools currently open, of which [XX] have been inspected so far.</li>
+            <li>Percentages may not total 100 due to rounding.</li>
+        </ul>
+        <h3>What's the point of it?</h3>
+        <ul>
+            <li>Currently it's not easy to get up-to-date information on Ofsted's assessment of a particular type of schools, such as free schools. This tool was built neither in an attempt to promote free schools, nor to attack the policy - merely to try and meet a need.</li>
+        </ul>
+        <h3>What data is it based on?</h3>
+        <ul>
+            <li>Ofsted ratings: the <a href="http://reports.ofsted.gov.uk/">Ofsted website</a></li>
+            <li>List of free schools, and free school details:<a href="http://www.education.gov.uk/edubase/home.xhtml"> Edubase</a></li>
+        </ul>
+        <h3>Who made the tool?</h3>
+        <ul>
+            <li>This tool has been developed by <a href="http://www.twitter.com/philipnye">Philip Nye</a>. While based on Ofsted data, it is not endorsed by the inspectorate.</li>
+            <li>If you make use of this tool, please provide attribution in your work.</li>
+        </ul>
+        <h3>How was the tool built?</h3>
+        <ul>
+            <li>See the links given <a href="https://github.com/philipnye/free-school-ofsted-ratings">here</a>.</li>
+        </ul>
+        <h3>Anything else I should know?</h3>
+        <ul>
+            <li>While every effort has been taken to ensure that ratings listed here are accurate, no liability can be taken for any errors in the information presented. If you’re planning on using the results for anything business-critical I’d recommend that you check them directly on the Ofsted website.</li>
+            <li>If you spot anything that you don’t think is accurate, or any missing results, please <a href="http://www.philipnye.co.uk/contact/">get in touch</li>
+        </ul>
         <span style="float:right"><a href="#introSection">Back to the top</a></span>
     </div>
 
