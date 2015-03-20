@@ -477,7 +477,7 @@
 		//////////////////////
 
 		var makeKey = function(){
-				var canvasWidth = 600,								//hacky solution to push 'special' pie chart onto a new line
+				var canvasWidth = 500,								//hacky solution to push 'special' pie chart onto a new line
 				    canvasHeight = 160
 
 			var svg = d3.select("#keySpace").append("svg")			//draws canvas, and sets our default position to being in the centre of the canvas
@@ -496,7 +496,7 @@
 				.data(keyData)
 				.enter()
 				.append("rect")	
-				.attr("x",360)
+				.attr("x",240)
 				.attr("y",function(d,i){return i*21;})
 				.attr("width",100)
 				.attr("height",20)
@@ -506,7 +506,7 @@
 				.data(keyData)
 				.enter()
 				.append("text")	
-				.attr("x",465)									// left edge of key segment + segment width + 5px
+				.attr("x",345)									// left edge of key segment + segment width + 5px
 				.attr("y",function(d,i){return i*21+15;})
 				.text(function(d) { return d.Name })
 			
