@@ -10,7 +10,7 @@
             font-family: "Georgia", "Geneva", sans-serif;
             font-size: 14px;
         }
-	
+
         p#subhead{                      /*looks like a header but more flexible*/              
             font-family: "Arial", "Geneva", sans-serif;
             color:#303030;
@@ -20,17 +20,7 @@
             margin-bottom: 0px;
         }
 
-        p#lastUpdatedBox {
-            vertical-align:right;
-            background-color:#4BBD4D;
-            float:right;
-        }
-
-        p#lastUpdatedBox, span#lastUpdatedDate {
-            font-size:1em;
-        }
-	
-	a:link{
+        a:link{
             color: black;
         }
 
@@ -42,30 +32,55 @@
             color: #B00808;
         }
 
+        /*div#navigationSection{
+            margin-top: 90px;
+        }*/
+
         ul#navigationList{
+            margin-top: 10px;
+            margin-bottom: 160px;
             list-style-type: none;
-            /*margin: 30;*/
-            /*padding: 0;*/
         }
 
         li.navigationListItem{
-            /*font-family: "Arial", "Geneva", sans-serif;*/
+            display: inline;
             font-family: "Georgia", "Geneva", sans-serif;
             font-size: 1.5em;
             font-weight: bold;
             color:#303030;
         }
-        div#navigationSection{
-            margin-top: 90px;
-        }
-	
-	div#piesSection{
-            margin-top: 30px;
-            margin-bottom: 30px;
+
+        p#lastUpdatedBox, span#lastUpdatedDate {
+            font-size:20px;
         }
         
+        p#lastUpdatedBox {
+            margin-top: 10px;
+            vertical-align:right;
+            background-color:#4BBD4D;
+            float:right;
+        }
+
+        div#openSection p, div#openSection div, div#closedSection p, div#closedSection div, div#notesSection h3, div#notesSection ul{             /*indents all sections under open, closed, and notes headers*/
+            margin-left: 30px;
+        }
+
+        div#openSection div#openTableSpace{             /*...except the table of open free schools...*/
+            margin-left: 0px;
+        }
+
+        div#closedSection div#closedTableSpace{         /*...and the table of closed free schools*/
+            margin-left: 0px;
+        }
+
         div#openNotesSpace, div#closedNotesSpace{
-            margin-left: 170px;                      /*HACKY. Brings table notes in line (actually marginally inside) left and right edges of table*/            margin-right: 170px;                      
+            margin-left: 170px;                      /*HACKY. Brings table notes in line (actually marginally inside) left and right edges of table*/
+            margin-right: 170px;                      
+        }
+    
+        div#piesSection{
+            margin-top: 30px;
+            margin-bottom: 30px;
         }
         
         h1, h2,h3,h4 {                                 /*nb these are naturally bold*/
@@ -75,12 +90,11 @@
 
         h1{                                 
             font-size:6em;
-            /*text-align: center;*/
-            margin-bottom: 0px;         /*forces bottom margin to 0, to remove excess white space*/
+            margin-bottom: 0px;
         }
 
         h2{                                 
-            padding-top: 60px;
+            font-size:28px;
         }
 
         h3{                                 
@@ -102,23 +116,22 @@
         }
 
         th {
-        	cursor: default		/*text doesn't show as selectable*/
+            cursor: default;        /*text doesn't show as selectable*/
         }            
-	
+    
         th.unselectedColumn {
             color:white;
             background-color:#303030;
             text-align:center;
         }
 
-	th.selectedColumn {
+        th.selectedColumn {
             color:white;
             background-color:#585858;
             text-align:center;
         }
 
         td {
-            /*border:0px solid black;*/
             text-align:left;
         }
 
@@ -126,6 +139,9 @@
             background-color:#E0E0E0;
         }
 
-        /*tr[chosen=true] {                       doesn't work currently as code to allow choosing has not been brought in*/
-        /*    background-color:#B5CDE1;*/
-        /*}*/
+        div#notesSection ul{
+            margin-left:5px;                /*hacky. Pushes bullets in marginally, to line up with h3s*/
+        }
+        
+        div#notesSection li{
+            margin-left:0px;
