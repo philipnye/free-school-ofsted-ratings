@@ -6,13 +6,12 @@
             /*padding: 30px;*/
             } 
 
-        a, p, span, li, text, td, th{                       /*this is all text - incl SVG text*/
+        p, span, li, text, div{                       /*this is all text - incl SVG text*/
             font-family: "Georgia", "Geneva", sans-serif;
-            /*font-family: "Arial", "Helvetica", sans-serif;*/
             font-size: 14px;
         }
 
-        p.subhead{                      /*looks like a header but more flexible*/              
+        p#subhead{                      /*looks like a header but more flexible*/              
             font-family: "Arial", "Geneva", sans-serif;
             color:#303030;
             font-size:3.6em;
@@ -22,7 +21,6 @@
         }
 
         p#lastUpdatedBox {
-            /*margin-top: 90px;*/
             vertical-align:right;
             background-color:#4BBD4D;
             float:right;
@@ -35,7 +33,16 @@
         div#navigationSection{
             margin-top: 90px;
         }
-
+	
+	div#piesSection{
+            margin-top: 30px;
+            margin-bottom: 30px;
+        }
+        
+        div#openNotesSpace, div#closedNotesSpace{
+            margin-left: 170px;                      /*HACKY. Brings table notes in line (actually marginally inside) left and right edges of table*/            margin-right: 170px;                      
+        }
+        
         h1, h2,h3,h4 {                                 /*nb these are naturally bold*/
             font-family: "Arial", "Geneva", sans-serif;
             color:#303030 ;
@@ -58,30 +65,30 @@
         table{
             margin-left:auto; 
             margin-right:auto;
+            border-collapse: collapse;
         }
 
         th, td {
-            font-family:sans-serif;
-            font-size:0.8em;
-            padding-left:7px;
-            padding-right:7px;
+            font-family: "Arial", "Geneva", sans-serif;
+            font-size:12px;
             padding-top:4px;
             padding-bottom:4px;
             vertical-align:middle;
-            /*text-align:center;/**/
         }
 
-        th {cursor: default}            /*text doesn't show as selectable*/
-
+        th {
+        	cursor: default		/*text doesn't show as selectable*/
+        }            
+	
         th.unselectedColumn {
             color:white;
-            background-color:steelblue;
+            background-color:#303030;
             text-align:center;
         }
 
-		th.selectedColumn {
+	th.selectedColumn {
             color:white;
-            background-color:black;
+            background-color:#585858;
             text-align:center;
         }
 
