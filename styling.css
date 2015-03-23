@@ -10,7 +10,7 @@
             font-family: "Georgia", "Geneva", sans-serif;
             font-size: 14px;
         }
-
+	
         p#subhead{                      /*looks like a header but more flexible*/              
             font-family: "Arial", "Geneva", sans-serif;
             color:#303030;
@@ -29,7 +29,32 @@
         p#lastUpdatedBox, span#lastUpdatedDate {
             font-size:1em;
         }
+	
+	a:link{
+            color: black;
+        }
 
+        a.redLink:link {
+            color: #FF0000;
+        }
+
+        a.redLink:visited {
+            color: #B00808;
+        }
+
+        ul#navigationList{
+            list-style-type: none;
+            /*margin: 30;*/
+            /*padding: 0;*/
+        }
+
+        li.navigationListItem{
+            /*font-family: "Arial", "Geneva", sans-serif;*/
+            font-family: "Georgia", "Geneva", sans-serif;
+            font-size: 1.5em;
+            font-weight: bold;
+            color:#303030;
+        }
         div#navigationSection{
             margin-top: 90px;
         }
