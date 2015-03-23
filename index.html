@@ -15,7 +15,7 @@
   <body>
     <div id="headersSection">
     <h1>Free school Ofsted ratings</h1>
-    <p class="subhead">Opening up free school Ofsted ratings data.</p>
+    <p id="subhead">Opening up free school Ofsted ratings data.</p>
     <p id="lastUpdatedBox">Last updated: <span id="lastUpdatedDate"></span></p>
     </div>
     <div id="navigationSection">
@@ -30,15 +30,13 @@
         <p>There are currently <span id="openfreeschools"></span> open free schools. Of these, <span id="sec5openfreeschools"></span> have had a section 5 inspection.</p>
 	<p><em><a href="#notesSection">Why don’t 16-19 free schools feature in the results?</a></em></p>        
 	<div id="piesSection" style="overflow:hidden">		<!-- forces table onto fresh row when closing this div -->	
-		<p></p>
-	        <div width: "40px"><span id="openPieSpace" style="float:left"></span></div>
+	        <span id="openPieSpace" style="float:left"></span>
 	        <span id="primaryPieSpace" style="float:left"></span>
 	        <span id="secondaryPieSpace" style="float:left"></span>
 	        <span id="keySpace" style="float:right"></span>
 	        <span id="allThroughPieSpace" style="float:left"></span>
 	        <span id="apPieSpace" style="float:left"></span>
 	        <span id="specialPieSpace" style="float:left"></span>
-	        <p></p>
 	</div>
 	<div id="openTableSpace"></div>
         <div id="openNotesSpace"></div>
@@ -130,21 +128,25 @@
 	        writeNotes(closedRatings,whereNotes);
 	    });
 
-	    ////////////////////////////////////////
-		//Adding notes to explain table items///
-		///////////////////////////////////////
+	////////////////////////////////////////
+	//Adding notes to explain table items///
+	///////////////////////////////////////
 
 		var writeNotes = function(ratings,whereNotes){
 			var haveNotes = false;
+			var firstNote = true
 			ratings.forEach(function(d){ 
 				if (d.notes!=""){		//takes existing notes and adds on new note symbol + note
-				 	d3.select(whereNotes).html(d3.select(whereNotes)[0][0].innerHTML+"<ul><li>"+d.note_symbol+d.notes+"</ul>")		//html is previous html + additional note
-				 	haveNotes=true;				
+				 	if (firstNote==true){
+				 		d3.select(whereNotes).html(d.note_symbol+d.notes)		//just the symbol and note, to prevent us getting an initial blank space
+				 	}
+				 	else{
+				 		d3.select(whereNotes).html(d3.select(whereNotes)[0][0].innerHTML+"&nbsp;"+d.note_symbol+d.notes)		//html is previous html + additional note	
+				 	}
+				 	haveNotes=true
+				 	firstNote=false;				
 				};
 			})
-			if (haveNotes==true){			//let's have a header
-					d3.select(whereNotes).html("<h3>Notes</h3>"+d3.select(whereNotes)[0][0].innerHTML)		//gives our notes section a header
-				};
 		};
 
 
