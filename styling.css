@@ -3,7 +3,6 @@
             margin-right: 66px;
             margin-top: 30px;            
             margin-bottom: 50px;
-            /*padding: 30px;*/
             } 
 
         p, span, li, text, div{                       /*this is all text - incl SVG text*/
@@ -15,7 +14,7 @@
             font-family: "Arial", "Geneva", sans-serif;
             color:#303030;
             font-size:3.6em;
-            margin-left: 0px;          /*HACKY. 30 also looks good*/
+            margin-left: 3px;          /*HACKY. aligns left-most point of first subhead word with left-most point of header*/
             margin-top: 0px;            /*forces top margin to 0, to remove excess white space*/
             margin-bottom: 0px;
         }
@@ -31,10 +30,6 @@
         a.redLink:visited {
             color: #B00808;
         }
-
-        /*div#navigationSection{
-            margin-top: 90px;
-        }*/
 
         ul#navigationList{
             margin-top: 10px;
@@ -61,8 +56,32 @@
             float:right;
         }
 
+        text.segmentCountlarge{                     /*labels on and around pie charts*/
+            font-size: 26px;   
+        }
+
+        text.segmentPercentagelarge{
+            font-size: 14px;   
+        }
+
+        text.centralLabellarge{
+            font-size: 26px;   
+        }
+
+        text.segmentCountsmall{
+            font-size: 20px;   
+        }
+
+        text.segmentPercentagesmall{
+            font-size: 10px;   
+        }
+        
+        text.centralLabelsmall{
+            font-size: 20px;   
+        }
+
         div#openSection p, div#openSection div, div#closedSection p, div#closedSection div, div#notesSection h3, div#notesSection ul{             /*indents all sections under open, closed, and notes headers*/
-            margin-left: 30px;
+            margin-left: 41px;
         }
 
         div#openSection div#openTableSpace{             /*...except the table of open free schools...*/
@@ -73,19 +92,32 @@
             margin-left: 0px;
         }
 
-        div#openNotesSpace, div#closedNotesSpace{
-            margin-left: 170px;                      /*HACKY. Brings table notes in line (actually marginally inside) left and right edges of table*/
-            margin-right: 170px;                      
+        div#openSection div#openNotesSpace, div#closedSection div#closedNotesSpace{
+            margin-top:20px;
+            margin-left: 184px;                      /*HACKY. Brings table notes in line (actually marginally inside) left and right edges of table*/
+            margin-right: 184px;                      
         }
     
         div#piesSection{
-            margin-top: 30px;
-            margin-bottom: 30px;
+            margin-top: 50px;
+            margin-bottom: 50px;
+        }
+
+        div#openSection, div#closedSection{
+            margin-bottom: 50px;
         }
         
+        div#openSection, div#closedSection, div#notesSection{
+            margin-bottom: 80px;
+        }
+
         h1, h2,h3,h4 {                                 /*nb these are naturally bold*/
             font-family: "Arial", "Geneva", sans-serif;
             color:#303030 ;
+        }
+
+        h2,h3,h4 {                                 
+            margin-left: 4px;          /*HACKY. aligns left-most point of first subhead word with left-most point of header*/
         }
 
         h1{                                 
@@ -94,11 +126,12 @@
         }
 
         h2{                                 
-            font-size:28px;
+            font-size:40px;
+            margin-bottom: 20px;
         }
-
+        
         h3{                                 
-            padding-top: 20px;
+            margin-top: 36px;
         }
 
         table{

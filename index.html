@@ -46,12 +46,12 @@
 	<p><em><a class="redLink" href="#notesSection">Why don’t 16-19 free schools feature in the results?</a></em></p>        
 	<div id="piesSection" style="overflow:hidden">		<!-- forces table onto fresh row when closing this div -->	
 		<span id="openPieSpace" style="float:left"></span>
-	        <span id="primaryPieSpace" style="float:left"></span>
-	        <span id="secondaryPieSpace" style="float:left"></span>
-	        <span id="keySpace" style="float:right"></span>
-	        <span id="allThroughPieSpace" style="float:left"></span>
-	        <span id="apPieSpace" style="float:left"></span>
-	        <span id="specialPieSpace" style="float:left"></span>
+	    <span id="primaryPieSpace" style="float:left"></span>
+	    <span id="secondaryPieSpace" style="float:left"></span>
+	    <span id="keySpace" style="float:right"></span>
+	    <span id="allThroughPieSpace" style="float:left"></span>
+	    <span id="apPieSpace" style="float:left"></span>
+	    <span id="specialPieSpace" style="float:left"></span>
 	</div>
 	<div id="openTableSpace"></div>
         <div id="openNotesSpace"></div>
@@ -60,7 +60,6 @@
     <div id="closedSection">
         <h2>Closed free schools</h2>
         <div id="closedTableSpace"></div>
-        <p></p>
         <div id="closedNotesSpace"></div>
         <span style="float:right"><a class="redLink" href="headersSection">Back to the top</a></span>
     </div>
@@ -96,7 +95,7 @@
         <h3>Anything else I should know?</h3>
         <ul>
             <li>While every effort has been taken to ensure that ratings listed here are accurate, no liability can be taken for any errors in the information presented. If you’re planning on using the results for anything business-critical I’d recommend that you check them directly on the Ofsted website.</li>
-            <li>If you spot anything that you don’t think is accurate, or any missing results, please <a class="redLink" href="http://www.philipnye.co.uk/contact/">get in touch.</li>
+            <li>If you spot anything that you don’t think is accurate, or any missing results, please <a class="redLink" href="http://www.philipnye.co.uk/contact/">get in touch</a>.</li>
         </ul>
         <span style="float:right"><a class="redLink" href="headersSection">Back to the top</a></span>
     </div>
@@ -263,14 +262,14 @@
 		        {"columnName":"Rating ↑↓", "width":"122","type":"rating","sorted":true,"selected":true}			//as by default, data is sorted on this column
 		    ]; 
 		    
-		    var table = d3.select(whereTable).append("table")
-		    	col= table.append("col").attr("width","242")					//manually sets column widths
-		    	col= table.append("col").attr("width","66")
-		    	col= table.append("col").attr("width","140")
-		    	col= table.append("col").attr("width","106")
-		    	col= table.append("col").attr("width","96")
-		    	col= table.append("col").attr("width","96")
-		    	col= table.append("col").attr("width","122")
+		    var table = d3.select(whereTable).append("table")					//manually sets column widths
+		    	col= table.append("col").attr("width","242")					//name
+		    	col= table.append("col").attr("width","66")						//URN
+		    	col= table.append("col").attr("width","140")					//LA
+		    	col= table.append("col").attr("width","106")					//phase
+		    	col= table.append("col").attr("width","86")					//insp date
+		    	col= table.append("col").attr("width","90")					//pub date
+		    	col= table.append("col").attr("width","122")					//rating
 		        thead = table.append("thead"),
 		        tbody = table.append("tbody");
 
@@ -280,9 +279,6 @@
 		        .data(columnTitles)
 		        .enter()
 		        .append("th")
-		        // .attr("style","width:400px")
-		        // .attr("style","width:" + function(d){return d.width;} + "px")
-		        // .attr("style","height:" + 400 + "px")
 		        .text(function(d) { return d.columnName; })
 		        .attr("class",function(d){				/*sets class of header to selectedColumn for Rating column only*/
 		        	var columnSelected
@@ -380,7 +376,6 @@
 		        })
 		        .enter()
 		        .append("td")
-		        // .text(function(d) { return d.value; })
 		        .html(function(d,i){              //when dealing with column "Name", add a hyperlink. When  dealing with other columns, just return the data value
 		            if (d.column=="schoolname_with_note_symbol"){
 		                return "<a href=\"http://www.ofsted.gov.uk/inspection-reports/find-inspection-report/provider/ELS/" + d.URN +"\"" + "target='_blank'>" + d.value + "</a>";     
@@ -433,16 +428,20 @@
    		 		var openInspectedTotal = 0;
 				ratingsData.forEach(function(d){ openInspectedTotal+=(d.ratingcount*1); });
 
-				var	center_group=svg.selectAll('text')			//adds central label
-						.data(ratingsData)
+				var	center_group=svg.selectAll('text')				//adds central label
+						.data(ratingsData)							//unnecessarily adds the label four times
 						.enter()
 						.append('text')
 						.text(openInspectedTotal)
-						.style("font-size","26px")
 						.attr("font-weight", "bold")
-						.attr('class',pieSize)
-						 .attr('dy', 10)							//bumps text down a few pixels to account for fact text sits on x line
-						.attr('text-anchor', 'middle')
+						.attr('class',"centralLabel"+pieSize)		//pieSize later used to set font size
+						.attr('dy', function(d){ 					//bumps text down a few pixels to account for fact text sits on x line
+							if (pieSize=="large"){
+							return 6}
+							else if (pieSize=="small"){
+							return 2}
+						}) 							
+						.attr('text-anchor', 'middle');
 
 				var g = svg.selectAll(".arc")
 				    .data(pie(ratingsData))
@@ -454,37 +453,31 @@
 				    .attr("d", arc)
 				    .style("fill", function(d) { return colours[d.data.ratingname]; });
 
-				// g.append("text")					//segment labels *outside* the graph (150% of centre of distance from centre of circle to centre of segment)
-				//     .attr("transform", function(d) {
-				// 	    var c = arc.centroid(d),
-				// 	        x = c[0],
-				// 	        y = c[1],
-				// 	        h = Math.sqrt(x*x + y*y);
-				// 	    return "translate(" + (x/h * 160) +  ',' +(y/h * 150) +  ")"; 
-				// 	})
-				//     .attr("dy", ".35em")
-				//     .attr("text-anchor", function(d) {  
-    			//		return (d.endAngle + d.startAngle)/2 > Math.PI ? "end" : "start";})
-				//     .text(function(d) { return d.data.ratingname; })
-
 				g.append("text")									//labels each segment with the relevant count
 					.attr("transform", function(d) {return "translate(" + arc.centroid(d) + ")";})
 				    .attr("text-anchor", "middle")
-				    .style("font-size","26px")
 				    .attr("font-weight", "bold")
+				    .attr("class", "segmentCount"+pieSize)			//pieSize later used to set font size
 				    .text(function(d) { return d.data.ratingcount})
 
 				g.append("text")									//labels each segment with the relevant percentage
 					.attr("transform", function(d) {return "translate(" + arc.centroid(d) + ")";})
 				    .attr("dx", "2")
-				    .attr("dy", "15")
+				    .attr('dy', function(d){ 					//shunted down a little from segment count
+						if (pieSize=="large"){
+						return 18}
+						else if (pieSize=="small"){
+						return 12}
+					})
 				    .attr("text-anchor", "middle")
+				    .attr("class", "segmentPercentage"+pieSize)		//pieSize later used to set font size
 				    .text(function(d) { return " "+d.data.percentage+"%"})
 
 				svg.append("text")								//header for each chart
-				    .attr("dy", (-canvasHeight/2)+10)
+				    .attr("dy", (-canvasHeight/2)+14)
 				    .attr("font-weight", "bold")
 				    .attr("text-anchor", "middle")
+				    .attr("class", "chartHeader")
 				    .text(pieTitle)
 			};
 
