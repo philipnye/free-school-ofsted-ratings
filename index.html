@@ -4,16 +4,30 @@
     <meta charset="utf-8">
     <title>Free school Ofsted ratings</title>
     <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script src="cookie-pop-up/jquery.cookieBar.js"></script>
     <link rel="stylesheet" href="styling.css">
     <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" type="text/css" href="cookie-pop-up/cookieBar.css">
+    
     <script>
     (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
     	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
     	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
     })(window,document,'script','//www.google-analytics.com/analytics.js','ga');ga('create', 'UA-61014748-1', 'auto');ga('send', 'pageview');
-</script>
+		</script>
+		
+		<script type="text/javascript">
+    $(document).ready(function() {
+      $('.cookie-message').cookieBar({ closeButton : '.my-close-button' });
+    });
+    </script>
   </head>
   <body>
+    <div class="cookie-message">
+    <p>I use Google Analytics to keep track of how many people use this resource <a class="my-close-button" href>Accept cookies</a></p>  
+  	</div>
+  	
     <div id="headersSection">
     <h1>Free school Ofsted ratings</h1>
     <p id="subhead">Opening up free school Ofsted ratings data.</p>
