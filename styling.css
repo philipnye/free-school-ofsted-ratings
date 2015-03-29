@@ -20,7 +20,7 @@
         }
 
         a:link{
-            color: black;
+            color: #303030;
         }
 
         a.redLink:link {
@@ -91,7 +91,7 @@
             font-size:20px;
             position: relative;
             top: -11px;             /*hacky*/
-            color: black;
+            color: #303030;
         }
 
         text.segmentCountlarge{                     /*labels on and around pie charts*/
