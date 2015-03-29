@@ -31,29 +31,67 @@
             color: #B00808;
         }
 
-        ul#navigationList{
-            margin-top: 10px;
+        div#navigationSection{
             margin-bottom: 160px;
-            list-style-type: none;
+        }
+
+
+        ul#navigationList{
+            display:inline;                         /*lets last update date sit on same line*/
+            width:600px;                            /*         "                 "          */
+            margin-top: 10px;
+            list-style-type: none;                  /*no bullets*/
         }
 
         li.navigationListItem{
-            display: inline;
+            display: inline;                                    /*all list items on one line*/
             font-family: "Georgia", "Geneva", sans-serif;
             font-size: 1.5em;
             font-weight: bold;
             color:#303030;
         }
 
-        p#lastUpdatedBox, span#lastUpdatedDate {
-            font-size:20px;
-        }
-        
         p#lastUpdatedBox {
-            margin-top: 10px;
-            vertical-align:right;
+            width:259px;
+            height:28px;
+            display: block;
+            margin-top: 0px;
+            margin-bottom: 10px;
             background-color:#4BBD4D;
             float:right;
+        }
+
+        span#lastUpdatedHeader, span#lastUpdatedDate {
+            font-size:20px;
+        }
+
+        span#lastUpdatedHeader, span#lastUpdatedDate{
+            position:relative;
+            top:2px;                    /*hacky*/                        
+        }
+
+        p#twitterLinkBox{
+            clear: both;            /*clears float of lastUpdatedBox and forces onto new line*/
+            width:259px;            /*forces to be same width as lastUpdatedBox*/
+            height:28px;
+        }
+        
+        p#twitterLinkBox {
+            margin-top: 0px;
+            margin-bottom: 0px;
+            background-color:#55ACEE;               /*Twitter blue*/
+            float:right;
+        }
+
+        img#twitterLogo32{
+            position:relative;
+            top:-2px;                   /*hacky*/
+        }
+
+        p#twitterLinkBox a {
+            font-size:20px;
+            position: relative;
+            top: -11px;             /*hacky*/         
         }
 
         text.segmentCountlarge{                     /*labels on and around pie charts*/
