@@ -35,7 +35,6 @@
             margin-bottom: 160px;
         }
 
-
         ul#navigationList{
             display:inline;                         /*lets last update date sit on same line*/
             width:600px;                            /*         "                 "          */
@@ -91,7 +90,8 @@
         p#twitterLinkBox a {
             font-size:20px;
             position: relative;
-            top: -11px;             /*hacky*/         
+            top: -11px;             /*hacky*/
+            color: black;
         }
 
         text.segmentCountlarge{                     /*labels on and around pie charts*/
