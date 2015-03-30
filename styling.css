@@ -51,27 +51,24 @@
         }
 
         p#lastUpdatedBox {
-            width:259px;
             height:28px;
             display: block;
             margin-top: 0px;
             margin-bottom: 10px;
             background-color:#4BBD4D;
             float:right;
+            color: #303030;
         }
 
         span#lastUpdatedHeader, span#lastUpdatedDate {
-            font-size:20px;
-        }
-
-        span#lastUpdatedHeader, span#lastUpdatedDate{
             position:relative;
-            top:2px;                    /*hacky*/                        
+            top:2px;                    /*hacky*/   
+            font-size:20px;
+            color: black;
         }
 
         p#twitterLinkBox{
             clear: both;            /*clears float of lastUpdatedBox and forces onto new line*/
-            width:259px;            /*forces to be same width as lastUpdatedBox*/
             height:28px;
         }
         
@@ -91,7 +88,7 @@
             font-size:20px;
             position: relative;
             top: -11px;             /*hacky*/
-            color: #303030;
+            color: black;
         }
 
         text.segmentCountlarge{                     /*labels on and around pie charts*/
@@ -216,3 +213,4 @@
         
         div#notesSection li{
             margin-left:0px;
+        }
