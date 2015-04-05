@@ -54,6 +54,7 @@
 		<span id="openPieSpace" style="float:left"></span>
 	    <span id="primaryPieSpace" style="float:left"></span>
 	    <span id="secondaryPieSpace" style="float:left"></span>
+	    <span id="blankPieSpace" style="float:left"></span>
 	    <span id="keySpace" style="float:right"></span>
 	    <span id="allThroughPieSpace" style="float:left"></span>
 	    <span id="apPieSpace" style="float:left"></span>
@@ -493,7 +494,7 @@
 		//////////////////////
 
 		var makeKey = function(){
-				var canvasWidth = 500,								//hacky solution to push 'special' pie chart onto a new line
+				var canvasWidth = 260,								//hacky solution to push 'special' pie chart onto a new line
 				    canvasHeight = 160
 
 			var svg = d3.select("#keySpace").append("svg")			//draws canvas, and sets our default position to being in the centre of the canvas
@@ -511,9 +512,8 @@
 			svg.selectAll("rect")
 				.data(keyData)
 				.enter()
-				.append("rect")	
-				.attr("x",240)
-				.attr("y",function(d,i){return i*21;})
+				.append("rect")
+				.attr("y",function(d,i){return (i*21)+20;})
 				.attr("width",100)
 				.attr("height",20)
 				.style("fill", function(d) { return d.colour });
@@ -522,8 +522,8 @@
 				.data(keyData)
 				.enter()
 				.append("text")	
-				.attr("x",345)									// left edge of key segment + segment width + 5px
-				.attr("y",function(d,i){return i*21+15;})
+				.attr("x",105)									// left edge of key segment + segment width + 5px
+				.attr("y",function(d,i){return (i*21)+15+20;})
 				.text(function(d) { return d.Name })
 			
 		}

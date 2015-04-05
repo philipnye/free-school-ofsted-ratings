@@ -91,6 +91,19 @@
             color: black;
         }
 
+        span#openPieSpace{
+            width:30%;
+        }
+
+        span#primaryPieSpace,span#secondaryPieSpace,span#blankPieSpace,span#allThroughPieSpace,span#apPieSpace,span#specialPieSpace{
+            width:15%;
+            height:163px;
+        }
+
+        span#keySpace{
+            width:25%;
+        }
+
         text.segmentCountlarge{                     /*labels on and around pie charts*/
             font-size: 26px;   
         }
@@ -117,6 +130,7 @@
 
         div#openSection p, div#openSection div, div#closedSection p, div#closedSection div, div#notesSection h3, div#notesSection ul{             /*indents all sections under open, closed, and notes headers*/
             margin-left: 41px;
+            margin-right: 41px;
         }
 
         div#openSection div#openTableSpace{             /*...except the table of open free schools...*/
