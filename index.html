@@ -49,7 +49,7 @@
     <div id="openSection">
         <h2>Open free schools</h2>
         <p>There are currently <span id="openfreeschools"></span> open free schools. Of these, <span id="sec5openfreeschools"></span> have had a section 5 inspection.</p>
-	<p><em><a class="redLink" href="#notesSection">Why don’t 16-19 free schools feature in the results?</a></em></p>        
+	<p><em><a class="redLink" href="#notesSection">Why don’t learning and skills inspection reports feature in the results?</a></em></p>
 	<div id="piesSection" style="overflow:hidden">		<!-- forces table onto fresh row when closing this div -->	
 		<span id="openPieSpace" style="float:left"></span>
 	    <span id="primaryPieSpace" style="float:left"></span>
@@ -77,8 +77,8 @@
         <ul>
             <li>The tool gives the latest Ofsted ratings for free schools, based on data scraped from the Ofsted website.</li>
             <li>Results are generally updated each day, at or around 6am. You can find out when they were last update by checking the datestamp at the top of the page.</li>
-            <li>Only Ofsted section 5 inspection results are included. These lead to one of four ratings: outstanding, good, requires improvement or inadequate. Other inspections that Ofsted carries out - section 8 inspections - are not included.</li>
-            <li>Currently, post-16 institutions are subject to a different type of inspection, with results that aren't directly comparable to those for other schools. For that reason, they’re excluded from the results given here. But there are only [XX] 16-19 free schools currently open, of which [XX] have been inspected so far.</li>
+            <li>Only Ofsted section 5 inspection results are included. These lead to one of four ratings: outstanding, good, requires improvement or inadequate. The results of section 8 inspections - monitoring inspections, for example where a school is in special measures or on notice to improve - are not included.</li>
+            <li>Currently, post-16 free schools and some 14-19 free schools are subject to learning and skills inspections. The results of these aren't directly comparable to section 5 inspection ratings, so they’re excluded from the results given here. But there are only <span id="LSopenfreeschools"></span> free schools that have had learning and skills inspections to date.</li>
             <li>Percentages may not total 100 due to rounding.</li>
         </ul>
         <h3>What's the point of it?</h3>
@@ -114,11 +114,12 @@
 		///////////////////////////////////////
 
 
-	    d3.json("https://premium.scraperwiki.com/fkvwfha/7f269650903e4e1/sql/?q=select%20%0A%09Max(Run_date)%2C%20Run_date_short%2CNumberOfSchools%2CNumberOfClosedSchools%2CNumberOfUnopenedSchools%2CNumberOfOpenUninspectedSchools%2CNumberOfOpenSec5Schools%0Afrom%20admin_totals%0Awhere%20Spreadsheet_pass%3D%22Pass%22%0AAND%20Saving_pass%3D%22Pass%22", function(json) {             //this pulls in JSON feed of admin data for last successful run
+	    d3.json("https://premium.scraperwiki.com/fkvwfha/7f269650903e4e1/sql/?q=select%20%0D%0A%20%20%20%20Max(Run_date)%2C%20Run_date_short%2CNumberOfSchools%2CNumberOfClosedSchools%2CNumberOfUnopenedSchools%2CNumberOfOpenUninspectedSchools%2CNumberOfOpenSec5Schools%2CNumberOfOpenLSSchools%0D%0Afrom%20admin_totals%0D%0Awhere%20Spreadsheet_pass%3D%22Pass%22%0D%0AAND%20Saving_pass%3D%22Pass%22", function(json) {             //this pulls in JSON feed of admin data for last successful run
 	        data=json[0];           //json only has one row, so grabs that
 	        d3.select("#lastUpdatedDate").text(data.Run_date_short);
 	        d3.select("#openfreeschools").text(data.NumberOfOpenSec5Schools+data.NumberOfOpenUninspectedSchools);
 	        d3.select("#sec5openfreeschools").text(data.NumberOfOpenSec5Schools);
+	        d3.select("#LSopenfreeschools").text(data.NumberOfOpenLSSchools);		//dogs here
 	    });
 
 

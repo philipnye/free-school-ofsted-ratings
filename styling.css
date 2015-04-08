@@ -8,6 +8,7 @@
         p, span, li, text, div{                       /*this is all text - incl SVG text*/
             font-family: "Georgia", "Geneva", sans-serif;
             font-size: 14px;
+            color: #303030;
         }
 
         p#subhead{                      /*looks like a header but more flexible*/              
@@ -39,14 +40,14 @@
             display:inline;                         /*lets last update date sit on same line*/
             width:600px;                            /*         "                 "          */
             margin-top: 10px;
-            list-style-type: none;                  /*no bullets*/
+            list-style-type: none;
+            font-weight: bold;              /*no bullets*/
         }
 
         li.navigationListItem{
             display: inline;                                    /*all list items on one line*/
             font-family: "Georgia", "Geneva", sans-serif;
             font-size: 1.5em;
-            font-weight: bold;
             color:#303030;
         }
 
@@ -89,6 +90,10 @@
             position: relative;
             top: -11px;             /*hacky*/
             color: black;
+        }
+
+        span#openfreeschools, span#sec5openfreeschools, span#LSopenfreeschools{
+            font-style: italic;
         }
 
         span#openPieSpace{
