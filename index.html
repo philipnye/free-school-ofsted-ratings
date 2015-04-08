@@ -62,17 +62,17 @@
 	</div>
 	<div id="openTableSpace"></div>
         <div id="openNotesSpace"></div>
-	<span style="float:right"><a class="redLink" href="headersSection">Back to the top</a></span>
+	<span style="float:right"><a class="redLink" href="#headersSection">Back to the top</a></span>
     </div>
     <div id="closedSection">
         <h2>Closed free schools</h2>
         <div id="closedTableSpace"></div>
         <div id="closedNotesSpace"></div>
-        <span style="float:right"><a class="redLink" href="headersSection">Back to the top</a></span>
+        <span style="float:right"><a class="redLink" href="#headersSection">Back to the top</a></span>
     </div>
     <div id="notesSection">
         <h2>Notes on use</h2>
-        <span style="float:right"><a class="redLink" href="headersSection">Back to the top</a></span>
+        <span style="float:right"><a class="redLink" href="#headersSection">Back to the top</a></span>
         <h3>How does it work?</h3>
         <ul>
             <li>The tool gives the latest Ofsted ratings for free schools, based on data scraped from the Ofsted website.</li>
@@ -93,7 +93,7 @@
         <h3>Who made the tool?</h3>
         <ul>
             <li>This tool has been developed by <a class="redLink" href="http://www.twitter.com/philipnye">Philip Nye</a>. While based on Ofsted data, it's not endorsed by the inspectorate.</li>
-            <li>If you make use of this tool, please provide attribution in your work.</li>
+            <li>If you make use of the tool, please provide attribution.</li>
         </ul>
         <h3>How was the tool built?</h3>
         <ul>
@@ -101,10 +101,10 @@
         </ul>
         <h3>Anything else I should know?</h3>
         <ul>
-            <li>While every effort has been taken to ensure that ratings listed here are accurate, no liability can be taken for any errors in the information presented. If you’re planning on using the results for anything business-critical I’d recommend that you check them directly on the Ofsted website.</li>
-            <li>If you spot anything that you don’t think is accurate, or any missing results, please get in touch <a class="redLink" href="http://www.philipnye.co.uk/contact/">via email</a> or <a class="redLink" href="http://www.twitter.com/philipnye/">Twitter</a>.</li>
+            <li>While every effort has been made to ensure that ratings listed here are accurate, with a number of checks carried out on the data, there's always the chance that an error could have crept into the results; no liability can be taken for anything you do with the data. If you’re planning on using the results for anything business-critical I’d recommend that you check ratings directly on the Ofsted website.</li>
+            <li>If you spot anything that you don’t think is accurate, think a result is missing, or want to provide feedback of any other kind, please get in touch <a class="redLink" href="http://www.philipnye.co.uk/contact/">via email</a> or <a class="redLink" href="http://www.twitter.com/philipnye/">Twitter</a>.</li>
         </ul>
-        <span style="float:right"><a class="redLink" href="headersSection">Back to the top</a></span>
+        <span style="float:right"><a class="redLink" href="#headersSection">Back to the top</a></span>
     </div>
 
     <script type="text/javascript">
@@ -117,7 +117,7 @@
 	    d3.json("https://premium.scraperwiki.com/fkvwfha/7f269650903e4e1/sql/?q=select%20%0D%0A%20%20%20%20Max(Run_date)%2C%20Run_date_short%2CNumberOfSchools%2CNumberOfClosedSchools%2CNumberOfUnopenedSchools%2CNumberOfOpenUninspectedSchools%2CNumberOfOpenSec5Schools%2CNumberOfOpenLSSchools%0D%0Afrom%20admin_totals%0D%0Awhere%20Spreadsheet_pass%3D%22Pass%22%0D%0AAND%20Saving_pass%3D%22Pass%22", function(json) {             //this pulls in JSON feed of admin data for last successful run
 	        data=json[0];           //json only has one row, so grabs that
 	        d3.select("#lastUpdatedDate").text(data.Run_date_short);
-	        d3.select("#openfreeschools").text(data.NumberOfOpenSec5Schools+data.NumberOfOpenUninspectedSchools);
+	        d3.select("#openfreeschools").text(data.NumberOfOpenSec5Schools+data.NumberOfOpenUninspectedSchools+data.NumberOfOpenLSSchools);
 	        d3.select("#sec5openfreeschools").text(data.NumberOfOpenSec5Schools);
 	        d3.select("#LSopenfreeschools").text(data.NumberOfOpenLSSchools);		//dogs here
 	    });
