@@ -140,7 +140,7 @@
 	        drawTable(openRatings,whereTable)
 	        writeNotes(openRatings,whereNotes);
 	    });
-
+		
 
 	    d3.json("https://premium.scraperwiki.com/fkvwfha/7f269650903e4e1/sql/?q=select%20%0D%0A%20%20%20%20published_recent%2C%20inspection_rating2%2C%20schooltype%2C%20LA%2C%20URL%2C%20schoolname_with_note_symbol%2C%20URN%2C%20schoolname%2C%20open_closed%2C%20opendate_full%2C%20inspection_date_long%2C%20inspection_rating%2C%20opendate_short%2C%20phase%2C%20publication_date%2C%20publication_date_long%2C%20include%2C%20notes%2C%20note_symbol%2C%20inspection_date%0D%0Afrom%20Last_successful_school_details%0D%0Awhere%20open_closed%3D%22Closed%22%0D%0Aorder%20by%20inspection_rating2%2Cschoolname", function(json) {             //this pulls in the JSON feed of last successful school ratings, closed schools only
 	        closedRatings=json;
@@ -149,27 +149,27 @@
 	        drawTable(closedRatings,whereTable)
 	        writeNotes(closedRatings,whereNotes);
 	    });
+	    
 
 	////////////////////////////////////////
 	//Adding notes to explain table items///
 	///////////////////////////////////////
 
 		var writeNotes = function(ratings,whereNotes){
-			var haveNotes = false;
 			var firstNote = true
 			ratings.forEach(function(d){ 
 				if (d.notes!=""){		//takes existing notes and adds on new note symbol + note
 				 	if (firstNote==true){
-				 		d3.select(whereNotes).html(d.note_symbol+d.notes)		//just the symbol and note, to prevent us getting an initial blank space
+				 		d3.select(whereNotes).html(d.note_symbol+d.notes)		//just the symbol and note, to prevent us getting an initial line break
 				 	}
 				 	else{
-				 		d3.select(whereNotes).html(d3.select(whereNotes)[0][0].innerHTML+"&nbsp;"+d.note_symbol+d.notes)		//html is previous html + additional note	
+				 		d3.select(whereNotes).html(d3.select(whereNotes)[0][0].innerHTML+"<br>"+d.note_symbol+d.notes)		//set html in whereNotes ([0][0] just used to select single element in whereNotes) to be previous html + additional notes
 				 	}
-				 	haveNotes=true
-				 	firstNote=false;				
+				 	firstNote=false;
 				};
 			})
 		};
+
 
 
 		//////////////////////////////////
