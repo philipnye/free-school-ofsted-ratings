@@ -163,19 +163,19 @@
 
 		var writeNotes = function(ratings,whereNotes){
 			var firstNote = true
+			var notesArray = []
+			var noteText = ''
 			ratings.forEach(function(d){
-				if (d.notes!=""){		//takes existing notes and adds on new note symbol + note
-				 	if (firstNote==true){
-				 		d3.select(whereNotes).html(d.note_symbol+d.notes)		//just the symbol and note, to prevent us getting an initial line break
-				 	}
-				 	else{
-				 		d3.select(whereNotes).html(d3.select(whereNotes)[0][0].innerHTML+"<br>"+d.note_symbol+d.notes)		//set html in whereNotes ([0][0] just used to select single element in whereNotes) to be previous html + additional notes
-				 	}
-				 	firstNote=false;
+				if (d.notes!=""){		
+					notesArray.push(d.note_symbol+d.notes)		// append next note
 				};
 			})
+			notesArray.sort(function(a, b, r){			// sort, replacing special characters (e.g. *) with z - so sorted in descending order
+   				return r = /^[a-z]/i, (r.test(a) ? a : "z" + a) < (r.test(b) ? b : "z" + b)
+			});
+			noteText=notesArray.join("<br>")
+			d3.select(whereNotes).html(noteText)	
 		};
-
 
 
 		//////////////////////////////////
