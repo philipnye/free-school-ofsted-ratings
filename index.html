@@ -49,7 +49,7 @@
     <div id="openSection">
         <h2>Open free schools</h2>
         <p>There are currently <span id="openfreeschools"></span> open free schools. Of these, <span id="sec5openfreeschools"></span> have had a section 5 inspection.</p>
-	<p><em><a class="redLink" href="#notesSection">Why don’t learning and skills inspection reports feature in the results?</a></em></p>
+	<p><em><a class="redLink" href="#notesSection">Why don’t post-16 inspections feature in the results?</a></em></p>
 	<div id="piesSection" style="overflow:hidden">		<!-- forces table onto fresh row when closing this div -->	
 		<span id="openPieSpace" style="float:left"></span>
 	    <span id="primaryPieSpace" style="float:left"></span>
@@ -77,18 +77,24 @@
         <ul>
             <li>The tool gives the latest Ofsted ratings for free schools, based on data scraped from the Ofsted website.</li>
             <li>Results are generally updated each day, at or around 6am. You can find out when they were last updated by checking the datestamp at the top of the page.</li>
-            <li>Only Ofsted section 5 inspection results are included. These lead to one of four ratings: outstanding, good, requires improvement or inadequate. The results of section 8 inspections - monitoring inspections, for example where a school is in special measures or on notice to improve - are not included.</li>
-            <li>Currently, post-16 free schools and some 14-19 free schools are subject to learning and skills inspections. The results of these aren't directly comparable to section 5 inspection ratings, so they’re excluded from the results given here. But there are only <span id="LSopenfreeschools"></span> free schools that have had learning and skills inspections to date.</li>
+            <li>Only inspections which result in an overall effectiveness rating being awarded or confirmed are included. Results are therefore based on the outcomes of:
+				<ul>
+					<li>full, section 5 Ofsted inspections;</li>
+					<li>short, section 8 inspections which do not convert to a full, section 5 inspection.</li>
+				</ul>
+			These lead to one of four overall effectiveness ratings: outstanding, good, requires improvement or inadequate.</li>	
+            <li>Results of free schools inspected as post-16 institutions are not included here. Post-16 free schools and some 14-19 free schools receive college inspections (learning and skills inspections, prior to September 2015). The Ofsted website does not allow details of post-16 inspections to be scraped as easily as those of school inspections, and, in the case of learning and skills inspections, inspection judgements were not directly comparable to those from school inspections. There are <span id="LSopenfreeschools"></span> free schools that have had college/learning and skills inspections to date.</li>
             <li>Percentages may not total 100 due to rounding.</li>
         </ul>
         <h3>What's the point of it?</h3>
         <ul>
-            <li>Currently it's not easy to get up-to-date information on Ofsted's assessment of a particular type of schools, such as free schools. This tool was built neither in an attempt to promote free schools, nor to attack the policy - merely to try and help fill this gap.</li>
+            <li>Currently it's not easy to get up-to-date information on Ofsted's assessment of a particular type of schools, such as free schools. This tool was built to try and help fill this gap.</li>
         </ul>
         <h3>What data is it based on?</h3>
         <ul>
-            <li>Ofsted ratings: the <a class="redLink" href="http://reports.ofsted.gov.uk/">Ofsted website</a></li>
+            <li>Ofsted ratings: the <a class="redLink" href="http://reports.ofsted.gov.uk/">Ofsted website</a>.</li>
             <li>List of free schools, and free school details: <a class="redLink" href="http://www.education.gov.uk/edubase/home.xhtml">Edubase</a></li>
+            <li>List of free schools, and free school details: the Department for Education’s <a class="redLink" href="https://get-information-schools.service.gov.uk/">get information about schools service</a>.</li>
         </ul>
         <h3>Who made the tool?</h3>
         <ul>
@@ -119,7 +125,7 @@
 	        d3.select("#lastUpdatedDate").text(data.Run_date_short);
 	        d3.select("#openfreeschools").text(data.NumberOfOpenSec5Schools+data.NumberOfOpenUninspectedSchools+data.NumberOfOpenLSSchools);
 	        d3.select("#sec5openfreeschools").text(data.NumberOfOpenSec5Schools);
-	        d3.select("#LSopenfreeschools").text(data.NumberOfOpenLSSchools);		//dogs here
+	        d3.select("#LSopenfreeschools").text(data.NumberOfOpenLSSchools);
 	    });
 
 
