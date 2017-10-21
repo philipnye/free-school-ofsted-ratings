@@ -15,14 +15,14 @@
     <link rel="stylesheet" href="styling.css">
     <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
     <link rel="stylesheet" type="text/css" href="cookie-pop-up/cookieBar.css">
-    
+
     <script>
     (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
     	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
     	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
     })(window,document,'script','//www.google-analytics.com/analytics.js','ga');ga('create', 'UA-61014748-1', 'auto');ga('send', 'pageview');
 		</script>
-		
+
 		<script type="text/javascript">
     $(document).ready(function() {
       $('.cookie-message').cookieBar({ closeButton : '.my-close-button' });
@@ -31,7 +31,7 @@
   </head>
   <body>
     <div class="cookie-message">
-    <p>This site uses Google Analytics cookies to record the number of people using it.<a class="my-close-button" href>Accept cookies</a></p>  
+    <p>This site uses Google Analytics cookies to record the number of people using it.<a class="my-close-button" href>Accept cookies</a></p>
   	</div>
     <div id="headersSection">
 	    <h1>Free school Ofsted ratings</h1>
@@ -48,9 +48,9 @@
     </div>
     <div id="openSection">
         <h2>Open free schools</h2>
-        <p>There are currently <span id="openfreeschools"></span> open free schools. Of these, <span id="sec5openfreeschools"></span> have had a section 5 inspection.</p>
+        <p>There are currently <span id="openfreeschools"></span> open free schools. Of these, <span id="sec5openfreeschools"></span> have had a section 5 school inspection.</p>
 	<p><em><a class="redLink" href="#notesSection">Why don’t post-16 inspections feature in the results?</a></em></p>
-	<div id="piesSection" style="overflow:hidden">		<!-- forces table onto fresh row when closing this div -->	
+	<div id="piesSection" style="overflow:hidden">		<!-- forces table onto fresh row when closing this div -->
 		<span id="openPieSpace" style="float:left"></span>
 	    <span id="primaryPieSpace" style="float:left"></span>
 	    <span id="secondaryPieSpace" style="float:left"></span>
@@ -82,7 +82,7 @@
 					<li>full, section 5 Ofsted inspections;</li>
 					<li>short, section 8 inspections which do not convert to a full, section 5 inspection.</li>
 				</ul>
-			These lead to one of four overall effectiveness ratings: outstanding, good, requires improvement or inadequate.</li>	
+			These lead to one of four overall effectiveness ratings: outstanding, good, requires improvement or inadequate.</li>
             <li>Results of free schools inspected as post-16 institutions are not included here. Post-16 free schools and some 14-19 free schools receive college inspections (learning and skills inspections, prior to September 2015). The Ofsted website does not allow details of post-16 inspections to be scraped as easily as those of school inspections, and, in the case of learning and skills inspections, inspection judgements were not directly comparable to those from school inspections. There are <span id="LSopenfreeschools"></span> free schools that have had college/learning and skills inspections to date.</li>
             <li>Percentages may not total 100 due to rounding.</li>
         </ul>
@@ -146,7 +146,7 @@
 	        drawTable(openRatings,whereTable)
 	        writeNotes(openRatings,whereNotes);
 	    });
-		
+
 
 	    d3.json("https://premium.scraperwiki.com/fkvwfha/7f269650903e4e1/sql/?q=select%20%0D%0A%20%20%20%20published_recent%2C%20inspection_rating2%2C%20schooltype%2C%20LA%2C%20URL%2C%20schoolname_with_note_symbol%2C%20URN%2C%20schoolname%2C%20open_closed%2C%20opendate_full%2C%20inspection_date_long%2C%20inspection_rating%2C%20opendate_short%2C%20phase%2C%20publication_date%2C%20publication_date_long%2C%20include%2C%20notes%2C%20note_symbol%2C%20inspection_date%0D%0Afrom%20Last_successful_school_details%0D%0Awhere%20open_closed%3D%22Closed%22%0D%0Aorder%20by%20inspection_rating2%2Cschoolname", function(json) {             //this pulls in the JSON feed of last successful school ratings, closed schools only
 	        closedRatings=json;
@@ -155,7 +155,7 @@
 	        drawTable(closedRatings,whereTable)
 	        writeNotes(closedRatings,whereNotes);
 	    });
-	    
+
 
 	////////////////////////////////////////
 	//Adding notes to explain table items///
@@ -163,7 +163,7 @@
 
 		var writeNotes = function(ratings,whereNotes){
 			var firstNote = true
-			ratings.forEach(function(d){ 
+			ratings.forEach(function(d){
 				if (d.notes!=""){		//takes existing notes and adds on new note symbol + note
 				 	if (firstNote==true){
 				 		d3.select(whereNotes).html(d.note_symbol+d.notes)		//just the symbol and note, to prevent us getting an initial line break
@@ -235,7 +235,7 @@
 				}
 			});
 
-		d3.json("https://premium.scraperwiki.com/fkvwfha/7f269650903e4e1/sql/?q=select%20%0D%0A%20%20%20%20ID%2Cratingtype%2Cratingname%2C%20rating%2C%20percentage%2C%20ratingcount%0D%0Afrom%20Last_successful_ratings_summary%0D%0Awhere%20ratingtype%3D%22Alternative%20provision%22%20AND%20percentage%3E0%0D%0Aorder%20by%20rating",function(error,json){			
+		d3.json("https://premium.scraperwiki.com/fkvwfha/7f269650903e4e1/sql/?q=select%20%0D%0A%20%20%20%20ID%2Cratingtype%2Cratingname%2C%20rating%2C%20percentage%2C%20ratingcount%0D%0Afrom%20Last_successful_ratings_summary%0D%0Awhere%20ratingtype%3D%22Alternative%20provision%22%20AND%20percentage%3E0%0D%0Aorder%20by%20rating",function(error,json){
 				if (error){
 					console.log(error); //logs error in console if error occurs
 				} else{
@@ -274,8 +274,8 @@
 		        {"columnName":"Inspection date ↑↓", "width":"96","type":"date","sorted":false,"selected":false},
 		        {"columnName":"Publication date ↑↓", "width":"96","type":"date","sorted":false,"selected":false},
 		        {"columnName":"Rating ↑↓", "width":"122","type":"rating","sorted":true,"selected":true}			//as by default, data is sorted on this column
-		    ]; 
-		    
+		    ];
+
 		    var table = d3.select(whereTable).append("table")					//manually sets column widths
 		    	col= table.append("col").attr("width","242")					//name
 		    	col= table.append("col").attr("width","66")						//URN
@@ -302,7 +302,7 @@
 		        	else if (d.selected==false){
 		        		columnSelected="unselectedColumn";
 		        	}
-		        	return columnSelected;})			
+		        	return columnSelected;})
 		        .on("click", function (d) {				/*sorts on clicked header, and updates class of clicked header to selectedColumn*/
 		        	var columnSorted
 		        	columnSorted=d.sorted
@@ -318,40 +318,40 @@
 		        	d.selected=true
 		            if(d.columnName=="Name ↑↓"){
 			            if(d.sorted == true){
-			                rows.sort(function (b, a) { return b.schoolname.localeCompare(a.schoolname); });   
+			                rows.sort(function (b, a) { return b.schoolname.localeCompare(a.schoolname); });
 			            }
 			            else if(d.sorted == false){
-			                rows.sort(function (a, b) { return b.schoolname.localeCompare(a.schoolname); });   
+			                rows.sort(function (a, b) { return b.schoolname.localeCompare(a.schoolname); });
 			            }
 		        	}
 		            else if(d.columnName=="URN ↑↓"){
 		      			if(d.sorted == true){
-			                rows.sort(function (b, a) { return b.URN.localeCompare(a.URN); });   
+			                rows.sort(function (b, a) { return b.URN.localeCompare(a.URN); });
 			            }
 			            else if(d.sorted == false){
-			                rows.sort(function (a, b) { return b.URN.localeCompare(a.URN); });   
+			                rows.sort(function (a, b) { return b.URN.localeCompare(a.URN); });
 			            }
 		            }
 		            else if(d.columnName=="Local authority ↑↓"){
 		      			if(d.sorted == true){
-			                rows.sort(function (b, a) { return b.LA.localeCompare(a.LA); });   
+			                rows.sort(function (b, a) { return b.LA.localeCompare(a.LA); });
 			            }
 			            else if(d.sorted == false){
-			                rows.sort(function (a, b) { return b.LA.localeCompare(a.LA); });   
+			                rows.sort(function (a, b) { return b.LA.localeCompare(a.LA); });
 			            }
 		            }
 		            else if(d.columnName=="Phase ↑↓"){
 		      			if(d.sorted == true){
-			                rows.sort(function (b, a) { return b.phase.localeCompare(a.phase); });   
+			                rows.sort(function (b, a) { return b.phase.localeCompare(a.phase); });
 			            }
 			            else if(d.sorted == false){
-			                rows.sort(function (a, b) { 
-			                	return b.phase.localeCompare(a.phase); });   
+			                rows.sort(function (a, b) {
+			                	return b.phase.localeCompare(a.phase); });
 			            }
 		            }
 		            else if(d.columnName=="Inspection date ↑↓"){
 		      			if(d.sorted == true){
-		      				rows.sort(function (a, b){return a.inspection_date_long<b.inspection_date_long ? -1 : a.inspection_date_long>b.inspection_date_long ? 1 : 0;}); 
+		      				rows.sort(function (a, b){return a.inspection_date_long<b.inspection_date_long ? -1 : a.inspection_date_long>b.inspection_date_long ? 1 : 0;});
 			            }
 			            else if(d.sorted == false){
 			                rows.sort(function (a, b){return a.inspection_date_long>b.inspection_date_long ? -1 : a.inspection_date_long<b.inspection_date_long ? 1 : 0;});
@@ -359,7 +359,7 @@
 		            }
 		            else if(d.columnName=="Publication date ↑↓"){
 		      			if(d.sorted == true){
-		      				rows.sort(function (a, b){return a.publication_date_long<b.publication_date_long ? -1 : a.publication_date_long>b.publication_date_long ? 1 : 0;}); 
+		      				rows.sort(function (a, b){return a.publication_date_long<b.publication_date_long ? -1 : a.publication_date_long>b.publication_date_long ? 1 : 0;});
 			            }
 			            else if(d.sorted == false){
 			                rows.sort(function (a, b){return a.publication_date_long>b.publication_date_long ? -1 : a.publication_date_long<b.publication_date_long ? 1 : 0;});
@@ -367,10 +367,10 @@
 		            }
 		            else if(d.columnName=="Rating ↑↓"){
 		      			if(d.sorted == true){
-			                rows.sort(function (b, a) { return b.inspection_rating2.localeCompare(a.inspection_rating2); });   
+			                rows.sort(function (b, a) { return b.inspection_rating2.localeCompare(a.inspection_rating2); });
 			            }
 			            else if(d.sorted == false){
-			                rows.sort(function (a, b) { return b.inspection_rating2.localeCompare(a.inspection_rating2); });   
+			                rows.sort(function (a, b) { return b.inspection_rating2.localeCompare(a.inspection_rating2); });
 			            }
 		            }
 		        });
@@ -381,7 +381,7 @@
 		        .enter()
 		        .append("tr")
 
-		    //create a cell in each row for each column    
+		    //create a cell in each row for each column
 		    var cells = rows.selectAll("td")
 		        .data(function(d) {
 		            return columnsToDisplay.map(function(column) {              //for all cells, creates an object with column, value and URN (note that not all of these need to be displayed)
@@ -392,10 +392,10 @@
 		        .append("td")
 		        .html(function(d,i){              //when dealing with column "Name", add a hyperlink. When  dealing with other columns, just return the data value
 		            if (d.column=="schoolname_with_note_symbol"){
-		                return "<a href=\"http://www.ofsted.gov.uk/inspection-reports/find-inspection-report/provider/ELS/" + d.URN +"\"" + "target='_blank'>" + d.value + "</a>";     
+		                return "<a href=\"http://www.ofsted.gov.uk/inspection-reports/find-inspection-report/provider/ELS/" + d.URN +"\"" + "target='_blank'>" + d.value + "</a>";
 		            }
 		            else{
-		                return d.value;    
+		                return d.value;
 		            }
 		        });
 			};
@@ -408,7 +408,7 @@
 
 			var makePie = function(ratingsData,wherePie,pieSize,pieTitle){
 				if (pieSize=="large"){
-		        	var canvasWidth = 320,				
+		        	var canvasWidth = 320,
 					    canvasHeight = 320,
 					    radius = Math.min(canvasWidth, canvasHeight) / 2;
 		        }
@@ -454,7 +454,7 @@
 							return 6}
 							else if (pieSize=="small"){
 							return 2}
-						}) 							
+						})
 						.attr('text-anchor', 'middle');
 
 				var g = svg.selectAll(".arc")
@@ -513,7 +513,7 @@
 		        {"Name":"Outstanding", "colour":"#1B811D"},
 		        {"Name":"Good", "colour":"#4BBD4D"},
 		        {"Name":"Requires improvement", "colour":"#ED9004"},
-		        {"Name":"Inadequate", "colour":"#B00808"},	
+		        {"Name":"Inadequate", "colour":"#B00808"},
 		    ];
 
 			svg.selectAll("rect")
@@ -528,17 +528,17 @@
 			svg.selectAll("text")
 				.data(keyData)
 				.enter()
-				.append("text")	
+				.append("text")
 				.attr("x",105)									// left edge of key segment + segment width + 5px
 				.attr("y",function(d,i){return (i*21)+15+20;})
 				.text(function(d) { return d.Name })
-			
+
 		}
 
 		makeKey();		//runs they key production section
-		
+
 
 </script>
- 
+
   </body>
 </html>
