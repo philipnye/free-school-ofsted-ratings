@@ -8,21 +8,18 @@
     <meta name="robots" content="index, follow"/>       <!-- standard option, made explicit -->
     <meta name="googlebot" content="index, follow"/>    <!-- standard option, made explicit -->
     <meta name="google" content="nositelinkssearchbox"/>      <!-- no search box for site in Google search results -->
-    <!-- <link rel="author" href="https://plus.google.com/104452715823590125578"/>       Should appear as author image against page in Google search results -->
     <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
     <script src="cookie-pop-up/jquery.cookieBar.js"></script>
     <link rel="stylesheet" href="styling.css">
     <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
     <link rel="stylesheet" type="text/css" href="cookie-pop-up/cookieBar.css">
-
     <script>
     (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
     	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
     	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
     })(window,document,'script','//www.google-analytics.com/analytics.js','ga');ga('create', 'UA-61014748-1', 'auto');ga('send', 'pageview');
 		</script>
-
 		<script type="text/javascript">
     $(document).ready(function() {
       $('.cookie-message').cookieBar({ closeButton : '.my-close-button' });
@@ -276,15 +273,15 @@
 		    ];
 
 		    var table = d3.select(whereTable).append("table")					//manually sets column widths
-		    	col= table.append("col").attr("width","242")					//name
-		    	col= table.append("col").attr("width","66")						//URN
+		    	col= table.append("col").attr("width","300")					//name
+		    	col= table.append("col").attr("width","70")						//URN
 		    	col= table.append("col").attr("width","140")					//LA
-		    	col= table.append("col").attr("width","106")					//phase
-		    	col= table.append("col").attr("width","86")					//insp date
+		    	col= table.append("col").attr("width","120")					//phase
+		    	col= table.append("col").attr("width","90")					//insp date
 		    	col= table.append("col").attr("width","90")					//pub date
-		    	col= table.append("col").attr("width","122")					//rating
-		        thead = table.append("thead"),
-		        tbody = table.append("tbody");
+		    	col= table.append("col").attr("width","160")					//rating
+		      thead = table.append("thead"),
+		      tbody = table.append("tbody");
 
 		    // append the header row
 		    var headers = thead.append("tr")
@@ -293,7 +290,7 @@
 		        .enter()
 		        .append("th")
 		        .text(function(d) { return d.columnName; })
-		        .attr("class",function(d){				/*sets class of header to selectedColumn for Rating column only*/
+		        .attr("class",function(d){				/*sets class of header to selectedColumn for (final) Rating column only*/
 		        	var columnSelected
 		        	if (d.selected==true){
 		        		columnSelected="selectedColumn";
@@ -304,7 +301,7 @@
 		        	return columnSelected;})
 		        .on("click", function (d) {				/*sorts on clicked header, and updates class of clicked header to selectedColumn*/
 		        	var columnSorted
-		        	columnSorted=d.sorted
+		        	columnSorted=d.sorted    /*records whether the column is already sorted*/
 		        	for (i = 0; i < columnTitles.length; i++){
 		        		columnTitles[i].sorted=false
 		        		columnTitles[i].selected=false
@@ -313,8 +310,8 @@
 		        			headers[0][i].className="selectedColumn";
 		        		}
 		        	}
-		        	d.sorted=!columnSorted
-		        	d.selected=true
+              d.selected=true
+              d.sorted=!columnSorted    /*reverses original sort status of the column*/
 		            if(d.columnName=="Name ↑↓"){
 			            if(d.sorted == true){
 			                rows.sort(function (b, a) { return b.schoolname.localeCompare(a.schoolname); });
@@ -344,32 +341,33 @@
 			                rows.sort(function (b, a) { return b.phase.localeCompare(a.phase); });
 			            }
 			            else if(d.sorted == false){
-			                rows.sort(function (a, b) {
-			                	return b.phase.localeCompare(a.phase); });
+			                rows.sort(function (a, b) { return b.phase.localeCompare(a.phase); });
 			            }
 		            }
 		            else if(d.columnName=="Inspection date ↑↓"){
 		      			if(d.sorted == true){
-		      				rows.sort(function (a, b){return a.inspection_date_long<b.inspection_date_long ? -1 : a.inspection_date_long>b.inspection_date_long ? 1 : 0;});
+		      				rows.sort(function (a, b){ return new Date(b.inspection_date_long) - new Date(a.inspection_date_long); });
 			            }
 			            else if(d.sorted == false){
-			                rows.sort(function (a, b){return a.inspection_date_long>b.inspection_date_long ? -1 : a.inspection_date_long<b.inspection_date_long ? 1 : 0;});
+			                rows.sort(function (b, a){ return new Date(b.inspection_date_long) - new Date(a.inspection_date_long); });
 			            }
 		            }
 		            else if(d.columnName=="Publication date ↑↓"){
 		      			if(d.sorted == true){
-		      				rows.sort(function (a, b){return a.publication_date_long<b.publication_date_long ? -1 : a.publication_date_long>b.publication_date_long ? 1 : 0;});
+		      				rows.sort(function (a, b){ return new Date(b.publication_date_long) - new Date(a.publication_date_long); });
 			            }
 			            else if(d.sorted == false){
-			                rows.sort(function (a, b){return a.publication_date_long>b.publication_date_long ? -1 : a.publication_date_long<b.publication_date_long ? 1 : 0;});
+			                rows.sort(function (b, a){ return new Date(b.publication_date_long) - new Date(a.publication_date_long); });
 			            }
 		            }
 		            else if(d.columnName=="Rating ↑↓"){
 		      			if(d.sorted == true){
-			                rows.sort(function (b, a) { return b.inspection_rating2.localeCompare(a.inspection_rating2); });
+			                rows.sort(function (b, a) {
+                        return b.inspection_rating2.localeCompare(a.inspection_rating2); });
 			            }
 			            else if(d.sorted == false){
-			                rows.sort(function (a, b) { return b.inspection_rating2.localeCompare(a.inspection_rating2); });
+			                rows.sort(function (a, b) {
+                        return b.inspection_rating2.localeCompare(a.inspection_rating2); });
 			            }
 		            }
 		        });
@@ -535,9 +533,6 @@
 		}
 
 		makeKey();		//runs they key production section
-
-
-</script>
-
+    </script>
   </body>
 </html>
