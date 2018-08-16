@@ -8,8 +8,8 @@
     <meta name="robots" content="index, follow"/>       <!-- standard option, made explicit -->
     <meta name="googlebot" content="index, follow"/>    <!-- standard option, made explicit -->
     <meta name="google" content="nositelinkssearchbox"/>      <!-- no search box for site in Google search results -->
-    <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script src="https://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
     <script src="cookie-pop-up/jquery.cookieBar.js"></script>
     <link rel="stylesheet" href="styling.css">
     <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
@@ -41,7 +41,7 @@
 	        <li class="navigationListItem"><a class="redLink" href="#notesSection">Notes on use</a></li>
 	    </ul>
 	    <p id="lastUpdatedBox"><span id="lastUpdatedHeader">Last updated: </span><span id="lastUpdatedDate"></span></p>
-	    <p id="twitterLinkBox"><img id="twitterLogo32" border="0" alt="Twitter logo" src="http://g.twimg.com/dev/documentation/image/Twitter_logo_white_32.png" width="32" height="32"><a href="http://www.twitter.com/FreeSchoolsInfo">@FreeSchoolsInfo</a></p>
+	    <p id="twitterLinkBox"><img id="twitterLogo32" border="0" alt="Twitter logo" src="https://g.twimg.com/dev/documentation/image/Twitter_logo_white_32.png" width="32" height="32"><a href="https://www.twitter.com/FreeSchoolsInfo">@FreeSchoolsInfo</a></p>
     </div>
     <div id="openSection">
         <h2>Open free schools</h2>
@@ -89,12 +89,12 @@
         </ul>
         <h3>What data is it based on?</h3>
         <ul>
-            <li>Ofsted ratings: the <a class="redLink" href="http://reports.ofsted.gov.uk/">Ofsted website</a>.</li>
+            <li>Ofsted ratings: the <a class="redLink" href="https://reports.ofsted.gov.uk/">Ofsted website</a>.</li>
             <li>List of free schools, and free school details: the Department for Education's <a class="redLink" href="https://get-information-schools.service.gov.uk/">get information about schools service</a>.</li>
         </ul>
         <h3>Who made the tool?</h3>
         <ul>
-            <li>The tool has been developed by <a class="redLink" href="http://www.twitter.com/philipnye">Philip Nye</a>. If you make use of the tool, please provide attribution.</li>
+            <li>The tool has been developed by <a class="redLink" href="https://www.twitter.com/philipnye">Philip Nye</a>. If you make use of the tool, please provide attribution.</li>
             <li>While based on Ofsted data, it's not endorsed by the inspectorate.</li>
         </ul>
         <h3>How was the tool built?</h3>
@@ -104,7 +104,7 @@
         <h3>Anything else I should know?</h3>
         <ul>
             <li>While every effort has been made to ensure that ratings listed here are accurate, with a number of checks carried out on the data, there's always the chance that an error could have crept into the results; no liability can be taken for anything you do with the data. So if you're planning on using the results for anything business-critical I'd recommend that you check them directly on the Ofsted website.</li>
-            <li>If you think a result is missing, or something is not accurate, or you want to provide feedback of any other kind, please get in touch via <a class="redLink" href="http://www.philipnye.co.uk/contact/">email</a> or <a class="redLink" href="http://www.twitter.com/philipnye/">Twitter</a>.</li>
+            <li>If you think a result is missing, or something is not accurate, or you want to provide feedback of any other kind, please get in touch via <a class="redLink" href="https://www.philipnye.co.uk/contact/">email</a> or <a class="redLink" href="https://www.twitter.com/philipnye/">Twitter</a>.</li>
         </ul>
         <span style="float:right"><a class="redLink" href="#headersSection">Back to the top</a></span>
     </div>
@@ -389,7 +389,7 @@
 		        .append("td")
 		        .html(function(d,i){              //when dealing with column "Name", add a hyperlink. When  dealing with other columns, just return the data value
 		            if (d.column=="schoolname_with_note_symbol"){
-		                return "<a href=\"http://www.ofsted.gov.uk/inspection-reports/find-inspection-report/provider/ELS/" + d.URN +"\"" + "target='_blank'>" + d.value + "</a>";
+		                return "<a href=\"https://www.ofsted.gov.uk/inspection-reports/find-inspection-report/provider/ELS/" + d.URN +"\"" + "target='_blank'>" + d.value + "</a>";
 		            }
 		            else{
 		                return d.value;
